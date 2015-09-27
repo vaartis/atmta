@@ -16,14 +16,18 @@ love.graphics.setFont(font)
 
 music = love.audio.newSource("music.mp3",stream)
 music2 = love.audio.newSource("gosling/gosling.mp3",stream)
+mgsnuclear = love.audio.newSource("mgs/mgs.mp3")
 
 music:setLooping(true)
 music2:setLooping(true)
+mgsnuclear:setLooping(true)
+
 love.audio.play(music)
 love.audio.setVolume(0.1)
 timr=0
 timr2=0
 beanframe=1
+mgsmode=false
 
 bans=0
 cats=1
@@ -39,15 +43,18 @@ function love.keypressed(key)
    elseif key == 'r' or key=='R' or key=='к' or key=='К' then
       love.audio.resume()
    elseif key=="1" then 
-	  love.audio.pause(music2)
+	  mgsmode=false
+	  goslingmode=false
+	  love.audio.pause()
       love.audio.play(music)
    elseif key=="2" then
-   bans=bans+100000
-   
-	  love.audio.pause(music)
+      mgsmode=false
+	  love.audio.pause()
       love.audio.play(music2)
-	elseif key=="z" then
-	mxtheme=true
+	elseif key=="3" then
+	 mgsmode=true
+	 love.audio.pause()
+	 love.audio.play(mgsnuclear)
 end
 end
 
@@ -74,13 +81,25 @@ function love.update(dt)
 	end
 	if timr2==30 then
 	if beanframe==1 then
+		if mgsmode==false then
 		bean=love.graphics.newImage("gosling/gosling.gif")
 		beanframe=2
 		timr2=0
+		else
+		bean=love.graphics.newImage("mgs/solid.gif")
+		beanframe=2
+		timr2=0
+		end
 	 elseif beanframe==2 then
+	   if mgsmode==false then
 	   bean=love.graphics.newImage("gosling/gosling2.gif")
 	   beanframe=1
 	   timr2=0
+	   else
+	    bean=love.graphics.newImage("mgs/solid2.gif")
+	   beanframe=1
+	   timr2=0
+	   end
 	  end
 	 end
 	if timr==20 then 
@@ -110,10 +129,10 @@ function love.mousepressed(x, y, button)
 	felixs=felixs+1
 	bans=bans-(50*rp*(felixs-1))
 	end
- elseif button=="l" and x>=170 and x<=186 and y>=20 and y<=36 then	
-	 if bans>=500*rp*(bans_add/10) and rp>=5 then
-	 bans_add=bans_add+10
-	 bans=bans-500*rp*(bans_add/10)
+     elseif button=="l" and x>=170 and x<=186 and y>=20 and y<=36 then	
+ 	 if bans>=500*rp*(bans_add-1) and rp>=5 then
+     bans_add=bans_add+1
+     bans=bans-(500*rp*(bans_add-1))
 	 end
  elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
 	if bans>=100*rp*(bots-1) and rp>=10 then
@@ -129,10 +148,14 @@ end
 end
 
 function love.draw()
+if mgsmode==false then
 love.window.setTitle("ATMTA")
+else
+love.window.setTitle("A Hideo Kojima Game")
+end
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.3",1,1)
+love.graphics.print("ATMTA Clicker 0.4",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
 love.graphics.print("\nMEMES NEEDED : 2",170,90)
@@ -159,7 +182,7 @@ love.graphics.print(50*rp*felixs.." : "..felixs-1,170,140)
 end
 if rp>=5 then
 love.graphics.setColor(0,0,0)
-love.graphics.print(500*rp*(bans_add/10).." : "..(bans_add-1)/10,186,20)
+love.graphics.print(500*rp*(bans_add).." : "..(bans_add-1),186,20)
 end
 if rp>=10 then
 love.graphics.setColor(0,0,0)
@@ -173,7 +196,7 @@ if bans>=(50*rp*felixs) and rp>=3 then
 love.graphics.setColor(255,255,255)
 love.graphics.draw(felix,1,140)
 end
-if bans>=(500*rp*(bans_add/10)) and rp>=5 then
+if bans>=(500*rp*(bans_add)) and rp>=5 then
 love.graphics.setColor(255,255,255)
 love.graphics.draw(cipa,170,20)
 end
