@@ -14,9 +14,11 @@ love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
 love.graphics.setFont(font)
 
-music = love.audio.newSource("music.mp3",stream)
-music2 = love.audio.newSource("gosling/gosling.mp3",stream)
-mgsnuclear = love.audio.newSource("mgs/mgs.mp3")
+ors=love.audio.newSource("sound/or.ogg",static)
+noice=love.audio.newSource("sound/noice.ogg",static)
+music = love.audio.newSource("music.ogg",stream)
+music2 = love.audio.newSource("gosling/gosling.ogg",stream)
+mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
 
 music:setLooping(true)
 music2:setLooping(true)
@@ -35,6 +37,29 @@ felixs=1
 bots=1
 rp=1
 bans_add=1
+isbanfelix=0
+
+banfelix = love.graphics.newCanvas(200,100)
+ love.graphics.setCanvas(banfelix)
+	love.graphics.setColor(133,133,133)
+	love.graphics.rectangle("fill",1,1,198,98)
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle("line",1,1,198,98)
+	love.graphics.print("\n                 Ban Felix?")
+	--Кнопки
+	love.graphics.setColor(255,255,255)
+	love.graphics.rectangle("fill",20,70,50,20)
+	love.graphics.setColor(0,0,0)
+	love.graphics.print("Yes",30,75)
+	love.graphics.rectangle("line",20,70,50,20)
+	
+	love.graphics.setColor(255,255,255)
+	love.graphics.rectangle("fill",120,70,50,20)
+	love.graphics.setColor(0,0,0)
+	love.graphics.print("Kys\'",130,75)
+	love.graphics.rectangle("line",120,70,50,20)
+	
+	love.graphics.setCanvas()
 end
 
 function love.keypressed(key)
@@ -53,6 +78,7 @@ function love.keypressed(key)
       love.audio.play(music2)
 	elseif key=="3" then
 	 mgsmode=true
+	 --bans=bans+47999
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 end
@@ -114,6 +140,9 @@ function love.update(dt)
 	   bans=bans+((bots-1)*100)
 	 end
 	end
+ if bans>=48000 and isbanfelix==0 then
+  isbanfelix=1
+ end
 end
 
 function love.mousepressed(x, y, button)
@@ -145,9 +174,21 @@ function love.mousepressed(x, y, button)
 	  rp=rp+1
 	 end
 end
+  if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
+   bans=0
+   love.audio.play(ors)
+   isbanfelix=3
+  elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
+  love.audio.play(noice)
+  bans=bans+1 -- ( ͡~ ͜ʖ ͡°)
+  isbanfelix=3
+  end
 end
 
 function love.draw()
+if isbanfelix==1 then
+love.graphics.draw(banfelix,400,100)
+end
 if mgsmode==false then
 love.window.setTitle("ATMTA")
 else
@@ -155,7 +196,7 @@ love.window.setTitle("A Hideo Kojima Game")
 end
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.4",1,1)
+love.graphics.print("ATMTA Clicker 0.5",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
 love.graphics.print("\nMEMES NEEDED : 2",170,90)
