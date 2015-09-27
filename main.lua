@@ -78,7 +78,7 @@ function love.keypressed(key)
       love.audio.play(music2)
 	elseif key=="3" then
 	 mgsmode=true
-	 --bans=bans+47999
+	 bans=bans+47999
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 end
@@ -149,27 +149,27 @@ function love.mousepressed(x, y, button)
  if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
  bans=bans+bans_add
  elseif button=="l" and x>=1 and x<=155 and y>=80 and y<=139 then
-	 if bans>=(10*rp*(cats-1)) and rp>=2 then
+	 if bans>=(10*rp*(cats-1)) and rp>=2 and bans>=0 then
 		cats=cats+1
 		bans=bans-(10*rp*(cats-1))
 		end
  elseif button=="l" and x>=1 and x<=155 and y>=140 and y<=200 then
-	if bans>=50*rp*(felixs-1) and rp>=3 then
+	if bans>=50*rp*(felixs-1) and rp>=3 and bans>=0 then
 	felixs=felixs+1
 	bans=bans-(50*rp*(felixs-1))
 	end
      elseif button=="l" and x>=170 and x<=186 and y>=20 and y<=36 then	
- 	 if bans>=500*rp*(bans_add-1) and rp>=5 then
+ 	 if bans>=500*rp*(bans_add-1) and rp>=5 and bans>=0 then
      bans_add=bans_add+1
      bans=bans-(500*rp*(bans_add-1))
 	 end
  elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
-	if bans>=100*rp*(bots-1) and rp>=10 then
+	if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
 	bots=bots+1
 	bans=bans-(100*rp*(bots-1))
 	end
  elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then
-	 if bans>=50*rp then
+	 if bans>=50*rp and bans>=0 then
 	  bans=bans-(50*rp)
 	  rp=rp+1
 	 end
