@@ -6,7 +6,9 @@ felix = love.graphics.newImage("buttons/button2.jpg")
 bot_b = love.graphics.newImage("buttons/button3.jpg")
 ban_b = love.graphics.newImage("buttons/ban.jpg")
 pause_m = love.graphics.newImage("buttons/pause_m.jpg")
-cipa = love.graphics.newImage("buttons/cipa.png") 
+pruglo = love.graphics.newImage("buttons/pruglo.jpg") 
+uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
+nomad = love.graphics.newImage("buttons/nomad.jpg") 
 forcememe = love.graphics.newImage("buttons/makememe.jpg")
 bean = love.graphics.newImage("gosling/gosling.gif")
 icon = love.image.newImageData("ico.jpg")
@@ -14,6 +16,7 @@ love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
 love.graphics.setFont(font)
 
+korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
@@ -40,6 +43,10 @@ bots=1
 rp=1
 bans_add=1
 isbanfelix=0
+ishelp=false
+ispruglo=false
+isuvarov=false
+isnomad=false
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
@@ -60,8 +67,15 @@ banfelix = love.graphics.newCanvas(200,100)
 	love.graphics.setColor(0,0,0)
 	love.graphics.print("Kys\'",130,75)
 	love.graphics.rectangle("line",120,70,50,20)
-	
-	love.graphics.setCanvas()
+ love.graphics.setCanvas()
+help = love.graphics.newCanvas(150,400)
+ love.graphics.setCanvas(help)
+	love.graphics.setColor(133,133,133)
+	love.graphics.rectangle("fill",1,1,150,400)
+	love.graphics.setColor(0,0,0)
+	love.graphics.rectangle("line",1,1,150,399)
+	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)")
+ love.graphics.setCanvas()
 end
 
 function love.keypressed(key)
@@ -79,13 +93,19 @@ function love.keypressed(key)
       love.audio.play(music2)
 	elseif key=="3" then
 	 mgsmode=true
-	 --bans=bans+47999
+	 --bans=bans+10000
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 	 elseif key=="4" then
 	 mgsmode=false
 	 love.audio.pause()
 	 love.audio.play(darude)
+	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
+	  if ishelp==true then
+	  ishelp=false
+	  else
+	  ishelp=true
+	  end
 end
 end
 
@@ -163,11 +183,21 @@ function love.mousepressed(x, y, button)
 	felixs=felixs+1
 	bans=bans-(50*rp*(felixs-1))
 	end
-     elseif button=="l" and x>=170 and x<=186 and y>=20 and y<=36 then	
- 	 if bans>=500*rp*(bans_add-1) and rp>=5 and bans>=0 then
-     bans_add=bans_add+1
-     bans=bans-(500*rp*(bans_add-1))
-	 end
+  elseif button=="l" and x>=650 and x<=800 and y>=20 and y<=170 then	
+ 	  if bans>=500 and rp>=5 and bans>=0 and ispruglo==false then
+      bans_add=bans_add+1
+      bans=bans-500
+	  ispruglo=true
+	  elseif bans>=500 and rp>=15 and bans>=0 and isuvarov==false then
+	  bans_add=bans_add+10
+      bans=bans-2500
+	  isuvarov=true
+	  elseif bans>=10000 and rp>=25 and bans>=0 and isnomad==false then
+	  bans_add=bans_add+100
+      bans=bans-10000
+	  love.audio.play(korovan)
+	  isnomad=true
+	  end
  elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
 	if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
 	bots=bots+1
@@ -199,15 +229,14 @@ love.window.setTitle("ATMTA")
 else
 love.window.setTitle("A Hideo Kojima Game")
 end
+if ishelp==true then
+love.graphics.draw(help,650,170)
+end
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.5",1,1)
+love.graphics.print("ATMTA Clicker 0.6",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
-love.graphics.print("\nMEMES NEEDED : 2",170,90)
-love.graphics.print("\nMEMES NEEDED : 3",170,150)
-love.graphics.print("\nMEMES NEEDED : 5",186,20)
-love.graphics.print("\nMEMES NEEDED : 10",170,210)
 love.graphics.print(50*rp,170,538)
 love.graphics.setColor(255,255,255)
 love.graphics.draw(ban_b,1,20)
@@ -215,8 +244,16 @@ love.graphics.setColor(133,133,133)
 love.graphics.draw(atmta,1,80)
 love.graphics.draw(felix,1,140)
 love.graphics.draw(bot_b,1,202)
-love.graphics.draw(cipa,170,20)
-
+if ispruglo==false then
+love.graphics.draw(pruglo,650,20)
+love.graphics.print("500",620,20)
+elseif ispruglo==true and isuvarov==false then
+love.graphics.draw(uvarov,650,20)
+love.graphics.print("2500",610,20)
+elseif isuvarov==true and isnomad==false then
+love.graphics.draw(nomad,650,20)
+love.graphics.print("10000",590,20)
+end
 love.graphics.draw(forcememe,1,538)
 if rp>=2 then
 love.graphics.setColor(0,0,0)
@@ -225,10 +262,6 @@ end
 if rp>=3 then
 love.graphics.setColor(0,0,0)
 love.graphics.print(50*rp*felixs.." : "..felixs-1,170,140)
-end
-if rp>=5 then
-love.graphics.setColor(0,0,0)
-love.graphics.print(500*rp*(bans_add).." : "..(bans_add-1),186,20)
 end
 if rp>=10 then
 love.graphics.setColor(0,0,0)
@@ -242,9 +275,17 @@ if bans>=(50*rp*felixs) and rp>=3 then
 love.graphics.setColor(255,255,255)
 love.graphics.draw(felix,1,140)
 end
-if bans>=(500*rp*(bans_add)) and rp>=5 then
+if bans>=500 and rp>=5 and ispruglo==false then
 love.graphics.setColor(255,255,255)
-love.graphics.draw(cipa,170,20)
+love.graphics.draw(pruglo,650,20)
+end
+if bans>=2500 and rp>=15 and isuvarov==false then
+love.graphics.setColor(255,255,255)
+love.graphics.draw(uvarov,650,20)
+end
+if bans>=10000 and rp>=25 and isnomad==false then
+love.graphics.setColor(255,255,255)
+love.graphics.draw(nomad,650,20)
 end
 if bans>=(100*rp*bots) and rp>=10 then
 love.graphics.setColor(255,255,255)
