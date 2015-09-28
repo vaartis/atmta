@@ -14,12 +14,14 @@ love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
 love.graphics.setFont(font)
 
+darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
 music = love.audio.newSource("music.ogg",stream)
 music2 = love.audio.newSource("gosling/gosling.ogg",stream)
 mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
 
+darude:setLooping(true)
 music:setLooping(true)
 music2:setLooping(true)
 mgsnuclear:setLooping(true)
@@ -69,7 +71,6 @@ function love.keypressed(key)
       love.audio.resume()
    elseif key=="1" then 
 	  mgsmode=false
-	  goslingmode=false
 	  love.audio.pause()
       love.audio.play(music)
    elseif key=="2" then
@@ -78,9 +79,13 @@ function love.keypressed(key)
       love.audio.play(music2)
 	elseif key=="3" then
 	 mgsmode=true
-	 bans=bans+47999
+	 --bans=bans+47999
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
+	 elseif key=="4" then
+	 mgsmode=false
+	 love.audio.pause()
+	 love.audio.play(darude)
 end
 end
 
