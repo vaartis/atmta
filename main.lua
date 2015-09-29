@@ -23,11 +23,13 @@ noice=love.audio.newSource("sound/noice.ogg",static)
 music = love.audio.newSource("music.ogg",stream)
 music2 = love.audio.newSource("gosling/gosling.ogg",stream)
 mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
+gachimuchi = love.audio.newSource("sound/gachimuchi.ogg",stream)
 
 darude:setLooping(true)
 music:setLooping(true)
 music2:setLooping(true)
 mgsnuclear:setLooping(true)
+gachimuchi:setLooping(true)
 
 love.audio.play(music)
 love.audio.setVolume(0.1)
@@ -35,6 +37,7 @@ timr=0
 timr2=0
 beanframe=1
 mgsmode=false
+gachimuchimode=false
 
 bans=0
 cats=1
@@ -84,22 +87,31 @@ function love.keypressed(key)
    elseif key == 'r' or key=='R' or key=='к' or key=='К' then
       love.audio.resume()
    elseif key=="1" then 
+     gachimuchimode=false
 	  mgsmode=false
 	  love.audio.pause()
       love.audio.play(music)
    elseif key=="2" then
+      gachimuchimode=false
       mgsmode=false
 	  love.audio.pause()
       love.audio.play(music2)
 	elseif key=="3" then
+	 gachimuchimode=false
 	 mgsmode=true
 	 --bans=bans+10000
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 	 elseif key=="4" then
+	 gachimuchimode=false
 	 mgsmode=false
 	 love.audio.pause()
 	 love.audio.play(darude)
+	 elseif key=="5" then
+	 mgsmode=false
+	 gachimuchimode=true
+	 love.audio.pause()
+	 love.audio.play(gachimuchi)
 	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
 	  if ishelp==true then
 	  ishelp=false
@@ -224,10 +236,12 @@ function love.draw()
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)
 end
-if mgsmode==false then
-love.window.setTitle("ATMTA")
-else
+if mgsmode==true then
 love.window.setTitle("A Hideo Kojima Game")
+elseif gachimuchimode==true then
+love.window.setTitle("Boy♂Next♂Door♂")
+else
+love.window.setTitle("ATMTA")
 end
 if ishelp==true then
 love.graphics.draw(help,650,170)
