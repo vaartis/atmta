@@ -11,6 +11,7 @@ uvarov = love.graphics.newImage("buttons/uvarov.jpg")
 nomad = love.graphics.newImage("buttons/nomad.jpg") 
 forcememe = love.graphics.newImage("buttons/makememe.jpg")
 bean = love.graphics.newImage("gosling/gosling.gif")
+cipa = love.graphics.newImage("buttons/cipa.png")
 icon = love.image.newImageData("ico.jpg")
 love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
@@ -24,12 +25,14 @@ music = love.audio.newSource("music.ogg",stream)
 music2 = love.audio.newSource("gosling/gosling.ogg",stream)
 mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
 gachimuchi = love.audio.newSource("sound/gachimuchi.ogg",stream)
+stalker = love.audio.newSource("stalker/stalker.ogg",stream)
 
 darude:setLooping(true)
 music:setLooping(true)
 music2:setLooping(true)
 mgsnuclear:setLooping(true)
 gachimuchi:setLooping(true)
+stalker:setLooping(true)
 
 love.audio.play(music)
 love.audio.setVolume(0.1)
@@ -38,6 +41,7 @@ timr2=0
 beanframe=1
 mgsmode=false
 gachimuchimode=false
+stalkermode=false
 
 bans=0
 cats=1
@@ -50,6 +54,7 @@ ishelp=false
 ispruglo=false
 isuvarov=false
 isnomad=false
+iscipa=false
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
@@ -87,31 +92,42 @@ function love.keypressed(key)
    elseif key == 'r' or key=='R' or key=='к' or key=='К' then
       love.audio.resume()
    elseif key=="1" then 
-     gachimuchimode=false
+      stalkermode=false
+      gachimuchimode=false
 	  mgsmode=false
 	  love.audio.pause()
       love.audio.play(music)
    elseif key=="2" then
+      stalkermode=false
       gachimuchimode=false
       mgsmode=false
 	  love.audio.pause()
       love.audio.play(music2)
 	elseif key=="3" then
+	 stalkermode=false
 	 gachimuchimode=false
 	 mgsmode=true
 	 --bans=bans+10000
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 	 elseif key=="4" then
+	 stalkermode=false
 	 gachimuchimode=false
 	 mgsmode=false
 	 love.audio.pause()
 	 love.audio.play(darude)
 	 elseif key=="5" then
+	 stalkermode=false
 	 mgsmode=false
 	 gachimuchimode=true
 	 love.audio.pause()
 	 love.audio.play(gachimuchi)
+	 elseif key=="6" then
+	 mgsmode=false
+	 gachimuchimode=false
+	 stalkermode=true 
+	 love.audio.pause()
+	 love.audio.play(stalker)
 	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
 	  if ishelp==true then
 	  ishelp=false
@@ -144,22 +160,30 @@ function love.update(dt)
 	end
 	if timr2==30 then
 	if beanframe==1 then
-		if mgsmode==false then
-		bean=love.graphics.newImage("gosling/gosling.gif")
-		beanframe=2
-		timr2=0
+		if mgsmode==true then
+		 bean=love.graphics.newImage("mgs/solid.gif")
+		 beanframe=2
+		 timr2=0
+		elseif stalkermode==true then
+		 bean=love.graphics.newImage("stalker/stalker.gif")
+		 beanframe=2
+		 timr2=0
 		else
-		bean=love.graphics.newImage("mgs/solid.gif")
-		beanframe=2
-		timr2=0
+		  bean=love.graphics.newImage("gosling/gosling.gif")
+		 beanframe=2
+		 timr2=0
 		end
 	 elseif beanframe==2 then
-	   if mgsmode==false then
-	   bean=love.graphics.newImage("gosling/gosling2.gif")
+	   if mgsmode==true then
+	   bean=love.graphics.newImage("mgs/solid2.gif")
 	   beanframe=1
 	   timr2=0
+	   elseif stalkermode==true then 
+	   bean=love.graphics.newImage("stalker/stalker2.gif")
+		beanframe=1
+		timr2=0
 	   else
-	    bean=love.graphics.newImage("mgs/solid2.gif")
+	    bean=love.graphics.newImage("gosling/gosling2.gif")
 	   beanframe=1
 	   timr2=0
 	   end
@@ -167,6 +191,18 @@ function love.update(dt)
 	 end
 	if timr==20 then 
 	timr=0
+	gencipa=love.math.random(0,200)
+	if     iscipa==true and bans>=1000 and bans-100>=0 then bans=bans-100
+	elseif iscipa==true and bans<100 and bans-10>=0 then bans=bans-10 
+	elseif iscipa==true and bans>=15000 and bans-1000>=0 then bans=bans-1000 
+	elseif iscipa==true and (bans-10<0 or bans==0) and rp-1>=0 then rp=rp-1 end
+	if iscipa==false then
+	 if gencipa==0 then
+	 iscipa=true
+	 cipax = love.math.random(300,400)
+	 cipay = love.math.random(100,300)
+	 end
+	 end
 	 if cats>1 then
 		bans=bans+(cats-1)
 	 end
@@ -220,7 +256,12 @@ function love.mousepressed(x, y, button)
 	  bans=bans-(50*rp)
 	  rp=rp+1
 	 end
-end
+	 end
+  if iscipa==true then
+   if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
+  iscipa=false
+  end
+  end
   if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
    bans=0
    love.audio.play(ors)
@@ -240,11 +281,16 @@ if mgsmode==true then
 love.window.setTitle("A Hideo Kojima Game")
 elseif gachimuchimode==true then
 love.window.setTitle("Boy♂Next♂Door♂")
+elseif stalkermode==true then
+love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
 else
 love.window.setTitle("ATMTA")
 end
 if ishelp==true then
 love.graphics.draw(help,650,170)
+end
+if iscipa==true then
+love.graphics.draw(cipa,cipax,cipay)
 end
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
