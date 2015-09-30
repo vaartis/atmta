@@ -117,7 +117,7 @@ function love.keypressed(key)
 	 stalkermode=false
 	 gachimuchimode=false
 	 mgsmode=true
-	 bans=bans+100000
+	 --bans=bans+100000
 	 love.audio.pause()
 	 love.audio.play(mgsnuclear)
 	 elseif key=="4" then
