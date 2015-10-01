@@ -1,6 +1,4 @@
--- +Пчела
--- +JonTron 
--- +Zoe
+--Слава Украине
 function love.load()
 love.graphics.setBackgroundColor(255,255,255)
 
@@ -9,6 +7,7 @@ felix = love.graphics.newImage("buttons/button2.jpg")
 bot_b = love.graphics.newImage("buttons/button3.jpg")
 zoe = love.graphics.newImage("buttons/button4.jpg")
 ban_b = love.graphics.newImage("buttons/ban.jpg")
+riba= love.graphics.newImage("buttons/riba.png")
 pause_m = love.graphics.newImage("buttons/pause_m.jpg")
 pruglo = love.graphics.newImage("buttons/pruglo.jpg") 
 uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
@@ -26,6 +25,7 @@ love.graphics.setFont(font)
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
+slava=love.audio.newSource("sound/riba.ogg",static)
 ech=love.audio.newSource("sound/ech.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
 music = love.audio.newSource("music.ogg",stream)
@@ -97,11 +97,7 @@ help = love.graphics.newCanvas(150,400)
 end
 
 function love.keypressed(key)
- if key == 'p' or key=='P' or key=='з' or key=='З' then
-      love.audio.pause()
-   elseif key == 'r' or key=='R' or key=='к' or key=='К' then
-      love.audio.resume()
-   elseif key=="1" then 
+      if key=="1" then 
       stalkermode=false
       gachimuchimode=false
 	  mgsmode=false
@@ -235,7 +231,8 @@ end
 
 function love.mousepressed(x, y, button)
  if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
- bans=bans+bans_add
+  bans=bans+bans_add
+  elseif x>=784 and x<=800 and y>=584 and y<=600 then love.audio.play(slava)
  elseif button=="l" and x>=1 and x<=155 and y>=80 and y<=139 then
 	 if bans>=(10*rp*(cats)) and rp>=2 and bans>=0 then
 		cats=cats+1
@@ -321,9 +318,10 @@ end
 if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
 end
+love.graphics.draw(riba,784,584)
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.7",1,1)
+love.graphics.print("ATMTA Clicker 0.9",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
 love.graphics.print(50*rp,170,538)
