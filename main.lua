@@ -1,4 +1,5 @@
 --Слава Украине
+--WHO?!
 function love.load()
 love.graphics.setBackgroundColor(255,255,255)
 
@@ -13,6 +14,7 @@ pruglo = love.graphics.newImage("buttons/pruglo.jpg")
 uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
 jontron =  love.graphics.newImage("buttons/jontron.png") 
 nomad = love.graphics.newImage("buttons/nomad.jpg") 
+who_b = love.graphics.newImage("buttons/who.jpg") 
 forcememe = love.graphics.newImage("buttons/makememe.jpg")
 bean = love.graphics.newImage("gosling/gosling.gif")
 cipa = love.graphics.newImage("buttons/cipa.png")
@@ -27,6 +29,7 @@ darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
 slava=love.audio.newSource("sound/riba.ogg",static)
 ech=love.audio.newSource("sound/ech.ogg",static)
+who = love.audio.newSource("sound/who.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
 music = love.audio.newSource("music.ogg",stream)
 music2 = love.audio.newSource("gosling/gosling.ogg",stream)
@@ -63,6 +66,7 @@ ispruglo=false
 isuvarov=false
 isnomad=false
 isjontron=false
+iswho=false
 iscipa=false
 ispchela=false
 
@@ -92,7 +96,7 @@ help = love.graphics.newCanvas(150,400)
 	love.graphics.rectangle("fill",1,1,150,400)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("line",1,1,150,399)
-	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (1000bans/s)")
+	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (1000bans/s)\n WHO?! : 100 MEMES \n (+10000bans/click)")
  love.graphics.setCanvas()
 end
 
@@ -267,6 +271,11 @@ function love.mousepressed(x, y, button)
       bans=bans-50000
 	  love.audio.play(ech)
 	  isjontron=true
+	  elseif bans>=250000 and rp>=100 and bans>=0 and isjontron==true and iswho==false then
+	  bans_add=bans_add+10000
+      bans=bans-250000
+	  love.audio.play(who)
+	  iswho=true
 	  end
  elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
 	if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
@@ -277,6 +286,11 @@ function love.mousepressed(x, y, button)
 	 if bans>=50*rp and bans>=0 then
 	  bans=bans-(50*rp)
 	  rp=rp+1
+	  end
+elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
+	 if bans>=(50*rp)*10 and bans>=0 then
+	  bans=bans-((50*rp)*10)
+	  rp=rp+10
 	 end
 	 end
   if iscipa==true then
@@ -324,7 +338,7 @@ love.graphics.setColor(0,0,0)
 love.graphics.print("ATMTA Clicker 0.9",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
-love.graphics.print(50*rp,170,538)
+love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)
 love.graphics.setColor(255,255,255)
 love.graphics.draw(ban_b,1,20)
 love.graphics.setColor(133,133,133)
@@ -344,6 +358,9 @@ love.graphics.print("10000",590,20)
 elseif isnomad==true and isjontron==false then
 love.graphics.draw(jontron,650,20)
 love.graphics.print("50000",590,20)
+elseif isjontron==true and iswho==false then
+love.graphics.draw(who_b,650,20)
+love.graphics.print("250000",580,20)
 end
 love.graphics.draw(forcememe,1,538)
 if rp>=2 then
@@ -389,6 +406,10 @@ end
 if bans>=50000 and rp>=50 and isjontron==false and isnomad==true then
 love.graphics.setColor(255,255,255)
 love.graphics.draw(jontron,650,20)
+end
+if bans>=250000 and rp>=100 and isjontron==true and iswho==false then
+love.graphics.setColor(255,255,255)
+love.graphics.draw(who_b,650,20)
 end
 if bans>=(100*rp*bots) and rp>=10 then
 love.graphics.setColor(255,255,255)
