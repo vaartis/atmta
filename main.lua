@@ -1,5 +1,3 @@
---Слава Украине
---WHO?!
 function love.load()
 love.graphics.setBackgroundColor(255,255,255)
 
@@ -19,6 +17,8 @@ forcememe = love.graphics.newImage("buttons/makememe.jpg")
 bean = love.graphics.newImage("gosling/gosling.gif")
 cipa = love.graphics.newImage("buttons/cipa.png")
 pchela = love.graphics.newImage("buttons/pchela.png")
+peq = love.graphics.newImage("pequod/peq3.1.png")
+callpeq = love.graphics.newImage("pequod/callpeq.png")
 icon = love.image.newImageData("ico.jpg")
 love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
@@ -36,6 +36,9 @@ music2 = love.audio.newSource("gosling/gosling.ogg",stream)
 mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
 gachimuchi = love.audio.newSource("sound/gachimuchi.ogg",stream)
 stalker = love.audio.newSource("stalker/stalker.ogg",stream)
+peqflying = love.audio.newSource("pequod/chopper.ogg", stream)
+peqcoming = love.audio.newSource("pequod/PeqComing.ogg",static)
+peqshot = love.audio.newSource("pequod/shot.ogg", static)
 
 darude:setLooping(true)
 music:setLooping(true)
@@ -43,15 +46,40 @@ music2:setLooping(true)
 mgsnuclear:setLooping(true)
 gachimuchi:setLooping(true)
 stalker:setLooping(true)
+peqflying:setLooping(true)
 
 love.audio.play(music)
-love.audio.setVolume(0.1)
+music:setVolume(0.1)
+korovan:setVolume(0.1)
+darude:setVolume(0.1)
+ors:setVolume(0.1)
+ech:setVolume(0.1)
+noice:setVolume(0.1)
+music2:setVolume(0.1)
+mgsnuclear:setVolume(0.1)
+gachimuchi:setVolume(0.1)
+stalker:setVolume(0.1)
+peqflying:setVolume(0.06)
+peqcoming:setVolume(0.4)
+peqshot:setVolume(0.1)
+
 timr=0
 timr2=0
 beanframe=1
 mgsmode=false
 gachimuchimode=false
 stalkermode=false
+
+peqmode=false						--баЕаЖаИаМ аПаИаКаВаОаД
+peqx = 1100							--аБаАаЗаОаВбаЙ б
+peqy = love.math.random(100, 500)		--аБаАаЗаОаВбаЙ б, аНаА ббаАббаЕ баМаЕаНббаЕаНаО аДаЛб аКаОббаЕаКбаНаОаГаО аВаЛаЕбаА
+peqframes = -300						--баКаОаЛбаКаО аПбаОаЛаЕбаЕаЛ
+peqdirection = 1					--аНаАаПбаАаВаЛаЕаНаИаЕ аПаОаЛаЕбаА
+peqrange = love.math.random(150, 300)	--баКаОаЛбаКаО аНбаЖаНаО аЛаЕбаЕбб
+peqspeed = 1						--ббаЕаЙаМб аЗаА аАаПаДаЕаЙб
+
+cipax = 400 --- ббаОаБб аНаЕ аВбаЛаЕбаАаЛаО аПбаИ аОаБбаАаБаОбаКаЕ аПаИаКаВаОаДаА аНаА ббаАббаЕ
+cipay = 300
 
 bans=0
 cats=1
@@ -77,7 +105,7 @@ banfelix = love.graphics.newCanvas(200,100)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("line",1,1,198,98)
 	love.graphics.print("\n                 Ban Felix?")
-	--Кнопки
+	--ааНаОаПаКаИ
 	love.graphics.setColor(255,255,255)
 	love.graphics.rectangle("fill",20,70,50,20)
 	love.graphics.setColor(0,0,0)
@@ -138,7 +166,7 @@ function love.keypressed(key)
 	 stalkermode=true 
 	 love.audio.pause()
 	 love.audio.play(stalker)
-	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
+	 elseif key=='h' or key=='H'or key=='б' or key=='а ' then
 	  if ishelp==true then
 	  ishelp=false
 	  else
@@ -165,11 +193,123 @@ function love.quit()
 function love.update(dt)
 	timr=timr+1
 	timr2=timr2+1
+	
+	--------------------------------------------------------------------аПаЕбаЕаМаЕбаЕаНаИаЕ аПаИаКаВаОаДаА
+	if peqmode == true then
+	love.audio.play(peqflying)
+	peqframes = peqframes+peqspeed
+	
+	if iscipa == false then									--баВаОаБаОаДаНбаЙ аПаОаЛаЕб
+		if peqframes < peqrange then
+			if peqdirection == 1 then
+				peqx = peqx-peqspeed
+				if peqx < 0 then peqdirection = 5  end
+			elseif peqdirection == 2 then
+				peqx = peqx-peqspeed
+				peqy = peqy-peqspeed
+				if peqx < 0 or peqy < 0 then peqdirection = 6 end
+			elseif peqdirection == 3 then
+				peqy = peqy-peqspeed
+				if peqy < 0 then peqdirection = 7 end
+			elseif peqdirection == 4 then
+				peqx = peqx+peqspeed
+				peqy = peqy-peqspeed
+				if peqx > 700 or peqy < 0 then peqdirection = 8 end
+			elseif peqdirection == 5 then
+				peqx = peqx+peqspeed
+				if peqx > 700 then peqdirection = 1 end
+			elseif peqdirection == 6 then
+				peqx = peqx+peqspeed
+				peqy = peqy+peqspeed
+				if peqx > 700 or peqy > 555 then peqdirection = 2 end
+			elseif peqdirection == 7 then
+				peqy = peqy+peqspeed
+				if peqy > 555 then peqdirection = 3 end
+			elseif peqdirection == 8 then
+				peqx = peqx-peqspeed
+				peqy = peqy+peqspeed
+				if peqx < 0 or peqy > 555 then peqdirection = 4 end
+			end
+		else
+			peqolddirection = peqdirection
+			peqdirection = love.math.random(1, 8)
+			peqframes = 0
+		end
+		
+	elseif iscipa == true or ispchela == true then								--баОббаОбаНаИаЕ аОбаОбб
+		peqspeed = 2
+		if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
+		or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then
+			if peqframes > 150 then peqframes = 0 love.audio.play(peqshot)	---------аЗаАаДаЕбаЖаКаА аОаКаОаЛаО баИаПб
+			elseif peqframes > 100 then
+				iscipa = false
+				ispchela = false
+				love.audio.stop(peqshot)
+				peqspeed = 1
+			end 
+		
+		elseif peqx > cipax+20 and peqy < cipay-20 then
+			peqdirection = 7
+			peqx = peqx-peqspeed
+			peqy = peqy+peqspeed
+		elseif peqx > cipax+20 and peqy > cipay-20 then
+			peqdirection = 2
+			peqx = peqx-peqspeed
+			peqy = peqy-peqspeed
+		elseif peqx < cipax+20 and peqy > cipay-20 then
+			peqdirection = 4
+			peqx = peqx+peqspeed
+			peqy = peqy-peqspeed
+		elseif peqx < cipax+20 then
+			peqdirection = 5
+			peqx = peqx+peqspeed
+		elseif peqx > cipax+20 then
+			peqdirection = 1
+			peqx = peqx-peqspeed
+		elseif peqy < cipay-20 then
+			peqdirection = 6
+			peqy = peqy+peqspeed
+		elseif peqy > cipay-20 then
+			peqdirection = 3
+			peqy = peqy-peqspeed
+		elseif peqx < cipax+20 and peqy < cipay-20 then
+			peqdirection = 6
+			peqx = peqx-peqspeed
+			peqy = peqy+peqspeed
+		end
+	end
+	else love.audio.stop(peqflying)
+	end
+	--------------------------------------------------------------------аПаОаЛаЕб аПаИаКаВаОаДаА
+	
+	
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
 	end
 	if timr2==30 then
 	if beanframe==1 then
+	
+			------------------------------------------------------------------------
+			if peqmode == true then
+				if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
+				or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		---бббаЕаЛбаБаА аПаО баИаПаЕ ббаЕаЙаМ 1
+					peq = love.graphics.newImage("pequod/shot1.png")
+				elseif peqdirection == 4 or peqdirection == 5 or peqdirection == 6 then
+					peq = love.graphics.newImage("pequod/peq4.1.png")
+				elseif peqdirection == 1 or peqdirection == 2 or peqdirection == 8 then
+					peq = love.graphics.newImage("pequod/peq3.1.png")
+				elseif peqdirection == 3 or peqdirection == 7 then
+					if peqolddirection == 1 or peqolddirection ==  2 or peqolddirection == 8 then
+						peq = love.graphics.newImage("pequod/peq1.1.png")
+					elseif peqolddirection == 4 or peqolddirection == 5 or peqolddirection == 6 then
+						peq = love.graphics.newImage("pequod/peq2.1.png")
+					else peq = love.graphics.newImage("pequod/peq1.1.png")
+					end
+				end
+			end
+			-------------------------------------------------------------------------
+			
+			
 		if mgsmode==true then
 		 bean=love.graphics.newImage("mgs/solid.gif")
 		 beanframe=2
@@ -184,6 +324,28 @@ function love.update(dt)
 		 timr2=0
 		end
 	 elseif beanframe==2 then
+	 
+	 	 	---------------------------------------------------------------------------
+		if peqmode == true then
+			if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
+			or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		---бббаЕаЛбаБаА аПаО баИаПаЕ ббаЕаЙаМ 2
+					peq = love.graphics.newImage("pequod/shot2.png")
+			elseif peqdirection == 1 or peqdirection == 2 or peqdirection == 8 then
+				peq = love.graphics.newImage("pequod/peq3.2.png")
+			elseif peqdirection == 4 or peqdirection == 5 or peqdirection == 6 then
+				peq = love.graphics.newImage("pequod/peq4.2.png")
+			elseif peqdirection == 3 or peqdirection == 7 then
+				if peqolddirection == 1 or peqolddirection ==  2 or peqolddirection == 8 then
+					peq = love.graphics.newImage("pequod/peq1.2.png")
+				elseif peqolddirection == 4 or peqolddirection == 5 or peqolddirection == 6 then
+					peq = love.graphics.newImage("pequod/peq2.2.png")
+				else peq = love.graphics.newImage("pequod/peq1.2.png")
+				end
+			end
+		end
+		-----------------------------------------------------------------------------
+		
+		
 	   if mgsmode==true then
 	   bean=love.graphics.newImage("mgs/solid2.gif")
 	   beanframe=1
@@ -201,7 +363,7 @@ function love.update(dt)
 	 end
 	if timr==20 then 
 	timr=0
-	gencipa=love.math.random(0,200)
+	gencipa=love.math.random(0,160)
 	if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
 	elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
 	elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
@@ -292,11 +454,22 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 	  bans=bans-((50*rp)*10)
 	  rp=rp+10
 	 end
+	 
+	 	 -----------------------------------------------------------  аВбаЗбаВаАаЕаМ аПаИаКаВаОаД
+ elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
+		if peqmode == false and bans>=30 then
+		peqmode = true
+		bans = bans - 30
+		love.audio.play(peqcoming)
+		end
+	 -----------------------------------------------------------
+	 
 	 end
   if iscipa==true then
    if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
   iscipa=false
   ispchela=false
+    peqspeed = 1	-------------------------------------
   end
   end
   if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
@@ -305,7 +478,7 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
    isbanfelix=3
   elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
   love.audio.play(noice)
-  bans=bans+1 -- ( ͡~ ͜ʖ ͡°)
+  bans=bans+1 -- ( ЭЁ~ ЭЪ ЭЁТА)
   isbanfelix=3
   end
 end
@@ -317,7 +490,7 @@ end
 if mgsmode==true then
 love.window.setTitle("A Hideo Kojima Game")
 elseif gachimuchimode==true then
-love.window.setTitle("Boy♂Next♂Door♂")
+love.window.setTitle("Boy♂Next♂Door♂ ")
 elseif stalkermode==true then
 love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
 else
@@ -335,7 +508,7 @@ end
 love.graphics.draw(riba,784,584)
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.9",1,1)
+love.graphics.print("ATMTA Clicker 0.9testing",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
 love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)
@@ -346,6 +519,8 @@ love.graphics.draw(atmta,1,80)
 love.graphics.draw(felix,1,140)
 love.graphics.draw(bot_b,1,202)
 love.graphics.draw(zoe,1,263)
+if peqmode == false then love.graphics.draw(callpeq, 1, 325)
+end													-----------------------------------
 if ispruglo==false then
 love.graphics.draw(pruglo,650,20)
 love.graphics.print("500",620,20)
@@ -420,4 +595,14 @@ love.graphics.setColor(255,255,255)
 love.graphics.draw(forcememe,1,538)
 end
 love.graphics.setColor(255,255,255)
+
+--------------------------------------------------------------------------
+if bans>=30 and peqmode == false then
+love.graphics.setColor(255, 255, 255)
+love.graphics.draw(callpeq, 1, 325)
+end
+
+if peqmode == true then love.graphics.draw(peq, peqx, peqy)
+end
+
 end
