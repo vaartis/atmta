@@ -1,3 +1,4 @@
+
 function love.load()
 love.graphics.setBackgroundColor(255,255,255)
 
@@ -105,6 +106,12 @@ iswho=false
 iscipa=false
 ispchela=false
 isfall=false
+
+diomode=false
+dio=love.graphics.newImage("dio/dio.png")
+dio_begin = love.audio.newSource("dio/zawarudo.ogg", static)
+dio_counting = love.audio.newSource("dio/count.ogg", static)
+dio_end = love.audio.newSource("dio/end.ogg", static)
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
@@ -382,23 +389,30 @@ function love.update(dt)
 	 end
 	 end
 	 if gencipa==1 then
+	  if love.math.random(0,500)==0 then
+	   isfall=true
+	   diomode=true
+	  else
 	  isfall=true 
-	 --etc.
+	  end
 	 end
 	 if isfall==true then fally=fally+25 end
-	 if fally>=700 then isfall=false fally=1 end
-	 if cats>1 then
-		bans=bans+(cats-1)
-	 end
-	 if felixs>1 then
-		bans=bans+((felixs-1)*10)
-	 end
-	 if bots>1 then
-	   bans=bans+((bots-1)*100)
-	 end
-	 if zoes>1 then
-	   bans=bans+((zoes-1)*1000)
-	 end
+	 if fally>=700 and diomode==false then isfall=false fally=1 end
+	 if fally>=700 and diomode==true then love.audio.play(dio_end) fally=1 end
+	 if diomode==false then
+		if cats>1 then
+			bans=bans+(cats-1)
+		end
+		if felixs>1 then
+			bans=bans+((felixs-1)*10)
+		end
+		if bots>1 then
+			bans=bans+((bots-1)*100)
+		end
+		if zoes>1 then
+			bans=bans+((zoes-1)*1000)
+		end
+	end
 	end
  if bans>=48000 and isbanfelix==0 then
   isbanfelix=1
@@ -469,6 +483,16 @@ elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 the
 	 fallx=love.math.random(200,500)
 	 fally=1
 	 isfall=false
+elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally and y<=fally+212 then 
+	love.audio.pause()
+	love.audio.play(dio_begin)
+	love.timer.sleep(5)
+	love.audio.play(dio_counting)
+	love.timer.sleep(13)
+	diomode=false
+	isfall=false
+	bans=bans+50000
+	fally=1
 	 	 ----------------------------------------------------------- 
  elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
 		if peqmode == false and bans>=150000 then
@@ -524,6 +548,8 @@ if isfall==true then
 		love.graphics.draw(fallingmgs,fallx,fally)
 	elseif stalkermode==true then
 	    love.graphics.draw(fallingstl,fallx,fally)
+	elseif diomode==true then
+	    love.graphics.draw(dio,fallx,fally)
 	else
 	love.graphics.draw(fallingyee,fallx,fally)
 	end
