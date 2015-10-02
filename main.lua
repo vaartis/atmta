@@ -389,7 +389,7 @@ function love.update(dt)
 	 end
 	 end
 	 if gencipa==1 then
-	  if love.math.random(0,500)==0 then
+	  if love.math.random(0,150)==0 then
 	   isfall=true
 	   diomode=true
 	  else
