@@ -619,7 +619,7 @@ end
 love.graphics.setColor(255,255,255)
 
 --------------------------------------------------------------------------
-if bans>=30 and peqmode == false then
+if bans>=150000 and peqmode == false then
 love.graphics.setColor(255, 255, 255)
 love.graphics.draw(callpeq, 1, 325)
 end
