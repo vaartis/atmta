@@ -24,6 +24,10 @@ love.window.setIcon(icon)
 font = love.graphics.newFont(love._vera_ttf, 14)
 love.graphics.setFont(font)
 
+fallingyee = love.graphics.newImage("falling/yee.png")
+fallingmgs = love.graphics.newImage("falling/mgs.png")
+fallingstl = love.graphics.newImage("falling/stalker.png") 
+
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
@@ -70,15 +74,18 @@ mgsmode=false
 gachimuchimode=false
 stalkermode=false
 
-peqmode=false						--баЕаЖаИаМ аПаИаКаВаОаД
-peqx = 1100							--аБаАаЗаОаВбаЙ б
-peqy = love.math.random(100, 500)		--аБаАаЗаОаВбаЙ б, аНаА ббаАббаЕ баМаЕаНббаЕаНаО аДаЛб аКаОббаЕаКбаНаОаГаО аВаЛаЕбаА
-peqframes = -300						--баКаОаЛбаКаО аПбаОаЛаЕбаЕаЛ
-peqdirection = 1					--аНаАаПбаАаВаЛаЕаНаИаЕ аПаОаЛаЕбаА
-peqrange = love.math.random(150, 300)	--баКаОаЛбаКаО аНбаЖаНаО аЛаЕбаЕбб
-peqspeed = 1						--ббаЕаЙаМб аЗаА аАаПаДаЕаЙб
+peqmode=false						
+peqx = 1100							
+peqy = love.math.random(100, 500)		
+peqframes = -300						
+peqdirection = 1					
+peqrange = love.math.random(150, 300)	
+peqspeed = 1	
+					
+fallx=love.math.random(200,500)
+fally=1
 
-cipax = 400 --- ббаОаБб аНаЕ аВбаЛаЕбаАаЛаО аПбаИ аОаБбаАаБаОбаКаЕ аПаИаКаВаОаДаА аНаА ббаАббаЕ
+cipax = 400 
 cipay = 300
 
 bans=0
@@ -97,6 +104,7 @@ isjontron=false
 iswho=false
 iscipa=false
 ispchela=false
+isfall=false
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
@@ -105,7 +113,6 @@ banfelix = love.graphics.newCanvas(200,100)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("line",1,1,198,98)
 	love.graphics.print("\n                 Ban Felix?")
-	--ааНаОаПаКаИ
 	love.graphics.setColor(255,255,255)
 	love.graphics.rectangle("fill",20,70,50,20)
 	love.graphics.setColor(0,0,0)
@@ -194,12 +201,11 @@ function love.update(dt)
 	timr=timr+1
 	timr2=timr2+1
 	
-	--------------------------------------------------------------------аПаЕбаЕаМаЕбаЕаНаИаЕ аПаИаКаВаОаДаА
 	if peqmode == true then
 	love.audio.play(peqflying)
 	peqframes = peqframes+peqspeed
 	
-	if iscipa == false then									--баВаОаБаОаДаНбаЙ аПаОаЛаЕб
+	if iscipa == false then									
 		if peqframes < peqrange then
 			if peqdirection == 1 then
 				peqx = peqx-peqspeed
@@ -236,11 +242,11 @@ function love.update(dt)
 			peqframes = 0
 		end
 		
-	elseif iscipa == true or ispchela == true then								--баОббаОбаНаИаЕ аОбаОбб
+	elseif iscipa == true or ispchela == true then								
 		peqspeed = 2
 		if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
 		or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then
-			if peqframes > 150 then peqframes = 0 love.audio.play(peqshot)	---------аЗаАаДаЕбаЖаКаА аОаКаОаЛаО баИаПб
+			if peqframes > 150 then peqframes = 0 love.audio.play(peqshot)	
 			elseif peqframes > 100 then
 				iscipa = false
 				ispchela = false
@@ -280,7 +286,6 @@ function love.update(dt)
 	end
 	else love.audio.stop(peqflying)
 	end
-	--------------------------------------------------------------------аПаОаЛаЕб аПаИаКаВаОаДаА
 	
 	
 	if love.keyboard.isDown('escape') then
@@ -289,10 +294,9 @@ function love.update(dt)
 	if timr2==30 then
 	if beanframe==1 then
 	
-			------------------------------------------------------------------------
 			if peqmode == true then
 				if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
-				or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		---бббаЕаЛбаБаА аПаО баИаПаЕ ббаЕаЙаМ 1
+				or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		
 					peq = love.graphics.newImage("pequod/shot1.png")
 				elseif peqdirection == 4 or peqdirection == 5 or peqdirection == 6 then
 					peq = love.graphics.newImage("pequod/peq4.1.png")
@@ -328,7 +332,7 @@ function love.update(dt)
 	 	 	---------------------------------------------------------------------------
 		if peqmode == true then
 			if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
-			or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		---бббаЕаЛбаБаА аПаО баИаПаЕ ббаЕаЙаМ 2
+			or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		
 					peq = love.graphics.newImage("pequod/shot2.png")
 			elseif peqdirection == 1 or peqdirection == 2 or peqdirection == 8 then
 				peq = love.graphics.newImage("pequod/peq3.2.png")
@@ -363,7 +367,7 @@ function love.update(dt)
 	 end
 	if timr==20 then 
 	timr=0
-	gencipa=love.math.random(0,160)
+	gencipa=love.math.random(0,150)
 	if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
 	elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
 	elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
@@ -377,6 +381,12 @@ function love.update(dt)
 	 cipay = love.math.random(100,300)
 	 end
 	 end
+	 if gencipa==1 then
+	  isfall=true 
+	 --etc.
+	 end
+	 if isfall==true then fally=fally+25 end
+	 if fally>=700 then isfall=false fally=1 end
 	 if cats>1 then
 		bans=bans+(cats-1)
 	 end
@@ -453,13 +463,17 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 	 if bans>=(50*rp)*10 and bans>=0 then
 	  bans=bans-((50*rp)*10)
 	  rp=rp+10
-	 end
-	 
-	 	 -----------------------------------------------------------  аВбаЗбаВаАаЕаМ аПаИаКаВаОаД
+	  end
+elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
+	 bans=bans+50000
+	 fallx=love.math.random(200,500)
+	 fally=1
+	 isfall=false
+	 	 ----------------------------------------------------------- 
  elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
-		if peqmode == false and bans>=30 then
+		if peqmode == false and bans>=150000 then
 		peqmode = true
-		bans = bans - 30
+		bans = bans - 150000
 		love.audio.play(peqcoming)
 		end
 	 -----------------------------------------------------------
@@ -505,10 +519,19 @@ end
 if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
 end
+if isfall==true then
+	if mgsmode==true then
+		love.graphics.draw(fallingmgs,fallx,fally)
+	elseif stalkermode==true then
+	    love.graphics.draw(fallingstl,fallx,fally)
+	else
+	love.graphics.draw(fallingyee,fallx,fally)
+	end
+end
 love.graphics.draw(riba,784,584)
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.9testing",1,1)
+love.graphics.print("ATMTA Clicker 0.9t",1,1)
 love.graphics.print("Banned: "..bans,150,1)
 love.graphics.print("MEMES: "..rp,160,550)
 love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)
@@ -519,8 +542,7 @@ love.graphics.draw(atmta,1,80)
 love.graphics.draw(felix,1,140)
 love.graphics.draw(bot_b,1,202)
 love.graphics.draw(zoe,1,263)
-if peqmode == false then love.graphics.draw(callpeq, 1, 325)
-end													-----------------------------------
+if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
 if ispruglo==false then
 love.graphics.draw(pruglo,650,20)
 love.graphics.print("500",620,20)
@@ -601,8 +623,5 @@ if bans>=30 and peqmode == false then
 love.graphics.setColor(255, 255, 255)
 love.graphics.draw(callpeq, 1, 325)
 end
-
-if peqmode == true then love.graphics.draw(peq, peqx, peqy)
-end
-
+if peqmode == true then love.graphics.draw(peq, peqx, peqy) end
 end
