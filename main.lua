@@ -45,6 +45,9 @@ peqflying = love.audio.newSource("pequod/chopper.ogg", stream)
 peqcoming = love.audio.newSource("pequod/PeqComing.ogg",static)
 peqshot = love.audio.newSource("pequod/shot.ogg", static)
 fallsnake = love.audio.newSource("falling/mgs.ogg", static)
+fallstl = love.audio.newSource("falling/stalker.ogg", static)
+fallyee = love.audio.newSource("falling/yee.ogg", static)
+
 darude:setLooping(true)
 music:setLooping(true)
 music2:setLooping(true)
@@ -67,6 +70,9 @@ stalker:setVolume(0.1)
 peqflying:setVolume(0.06)
 peqcoming:setVolume(0.4)
 peqshot:setVolume(0.1)
+fallsnake:setVolume(0.7)
+fallstl:setVolume(0.7)
+fallyee:setVolume(0.7)
 
 timr=0
 timr2=0
@@ -181,7 +187,7 @@ function love.keypressed(key)
 	 stalkermode=true 
 	 love.audio.pause()
 	 love.audio.play(stalker)
-	 elseif key=='h' or key=='H'or key=='б' or key=='а ' then
+	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
 	  if ishelp==true then
 	  ishelp=false
 	  else
@@ -481,7 +487,11 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 	  end
 elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
 	if mgsmode==true then
-	love.sound.play(fallsnake)
+	love.audio.play(fallsnake)
+	elseif stalkermode == true then
+	love.audio.play(fallstl)
+	else
+	love.audio.play(fallyee)
 	end
 	 bans=bans+25000
 	 fallx=love.math.random(200,500)
@@ -549,17 +559,6 @@ end
 if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
 end
-if isfall==true then
-	if mgsmode==true then
-		love.graphics.draw(fallingmgs,fallx,fally)
-	elseif stalkermode==true then
-	    love.graphics.draw(fallingstl,fallx,fally)
-	elseif diomode==true then
-	    love.graphics.draw(dio,fallx,fally)
-	else
-	love.graphics.draw(fallingyee,fallx,fally)
-	end
-end
 love.graphics.draw(riba,784,584)
 love.graphics.draw(bean,300,300)
 love.graphics.setColor(0,0,0)
@@ -574,6 +573,19 @@ love.graphics.draw(atmta,1,80)
 love.graphics.draw(felix,1,140)
 love.graphics.draw(bot_b,1,202)
 love.graphics.draw(zoe,1,263)
+love.graphics.setColor(255,255,255)
+if isfall==true then
+	if mgsmode==true then
+		love.graphics.draw(fallingmgs,fallx,fally)
+	elseif stalkermode==true then
+	    love.graphics.draw(fallingstl,fallx,fally)
+	elseif diomode==true then
+	    love.graphics.draw(dio,fallx,fally)
+	else
+	love.graphics.draw(fallingyee,fallx,fally)
+	end
+end
+love.graphics.setColor(133,133,133)
 if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
 if ispruglo==false then
 love.graphics.draw(pruglo,650,20)
