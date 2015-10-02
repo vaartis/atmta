@@ -44,7 +44,7 @@ stalker = love.audio.newSource("stalker/stalker.ogg",stream)
 peqflying = love.audio.newSource("pequod/chopper.ogg", stream)
 peqcoming = love.audio.newSource("pequod/PeqComing.ogg",static)
 peqshot = love.audio.newSource("pequod/shot.ogg", static)
-
+fallsnake = love.audio.newSource("falling/mgs.ogg", static)
 darude:setLooping(true)
 music:setLooping(true)
 music2:setLooping(true)
@@ -480,6 +480,9 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 	  rp=rp+10
 	  end
 elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
+	if mgsmode==true then
+	love.sound.play(fallsnake)
+	end
 	 bans=bans+25000
 	 fallx=love.math.random(200,500)
 	 fally=1
