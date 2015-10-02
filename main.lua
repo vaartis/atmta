@@ -465,7 +465,7 @@ elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 	  rp=rp+10
 	  end
 elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
-	 bans=bans+50000
+	 bans=bans+25000
 	 fallx=love.math.random(200,500)
 	 fally=1
 	 isfall=false
