@@ -107,6 +107,7 @@ iscipa=false
 ispchela=false
 isfall=false
 
+willdio=9
 diomode=false
 dio=love.graphics.newImage("dio/dio.png")
 dio_begin = love.audio.newSource("dio/zawarudo.ogg", static)
@@ -374,7 +375,7 @@ function love.update(dt)
 	 end
 	if timr==20 then 
 	timr=0
-	gencipa=love.math.random(0,150)
+	gencipa=love.math.random(1,1)
 	if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
 	elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
 	elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
@@ -389,7 +390,7 @@ function love.update(dt)
 	 end
 	 end
 	 if gencipa==1 then
-	  if love.math.random(0,150)==0 then
+	  if willdio==0 then
 	   isfall=true
 	   diomode=true
 	  else
@@ -397,8 +398,8 @@ function love.update(dt)
 	  end
 	 end
 	 if isfall==true then fally=fally+25 end
-	 if fally>=700 and diomode==false then isfall=false fally=1 end
-	 if fally>=700 and diomode==true then love.audio.play(dio_end) fally=1 end
+	 if fally>=700 and diomode==false then isfall=false fally=1 willdio=love.math.random(0,200) end
+	 if fally>=700 and diomode==true then love.audio.play(dio_end) willdio=love.math.random(0,200) fally=1  end
 	 if diomode==false then
 		if cats>1 then
 			bans=bans+(cats-1)
@@ -483,6 +484,7 @@ elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 the
 	 fallx=love.math.random(200,500)
 	 fally=1
 	 isfall=false
+	 love.math.random(0,200)
 elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally and y<=fally+212 then 
 	love.audio.pause()
 	love.audio.play(dio_begin)
@@ -492,6 +494,7 @@ elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally 
 	diomode=false
 	isfall=false
 	bans=bans+50000
+	willdio=love.math.random(0,200)
 	fally=1
 	 	 ----------------------------------------------------------- 
  elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
