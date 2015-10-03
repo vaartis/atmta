@@ -1,5 +1,7 @@
-
 function love.load()
+require("funcs/draw")
+require("funcs/mousepressed")
+require("funcs/update")
 love.graphics.setBackgroundColor(255,255,255)
 
 atmta = love.graphics.newImage("buttons/button1.jpg")
@@ -214,325 +216,26 @@ function love.quit()
 function love.update(dt)
 	timr=timr+1
 	timr2=timr2+1
-	
-	if peqmode == true then
-	love.audio.play(peqflying)
-	peqframes = peqframes+peqspeed
-	
-	if iscipa == false then									
-		if peqframes < peqrange then
-			if peqdirection == 1 then
-				peqx = peqx-peqspeed
-				if peqx < 0 then peqdirection = 5  end
-			elseif peqdirection == 2 then
-				peqx = peqx-peqspeed
-				peqy = peqy-peqspeed
-				if peqx < 0 or peqy < 0 then peqdirection = 6 end
-			elseif peqdirection == 3 then
-				peqy = peqy-peqspeed
-				if peqy < 0 then peqdirection = 7 end
-			elseif peqdirection == 4 then
-				peqx = peqx+peqspeed
-				peqy = peqy-peqspeed
-				if peqx > 700 or peqy < 0 then peqdirection = 8 end
-			elseif peqdirection == 5 then
-				peqx = peqx+peqspeed
-				if peqx > 700 then peqdirection = 1 end
-			elseif peqdirection == 6 then
-				peqx = peqx+peqspeed
-				peqy = peqy+peqspeed
-				if peqx > 700 or peqy > 555 then peqdirection = 2 end
-			elseif peqdirection == 7 then
-				peqy = peqy+peqspeed
-				if peqy > 555 then peqdirection = 3 end
-			elseif peqdirection == 8 then
-				peqx = peqx-peqspeed
-				peqy = peqy+peqspeed
-				if peqx < 0 or peqy > 555 then peqdirection = 4 end
-			end
-		else
-			peqolddirection = peqdirection
-			peqdirection = love.math.random(1, 8)
-			peqframes = 0
-		end
-		
-	elseif iscipa == true or ispchela == true then								
-		peqspeed = 2
-		if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
-		or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then
-			if peqframes > 150 then peqframes = 0 love.audio.play(peqshot)	
-			elseif peqframes > 100 then
-				iscipa = false
-				ispchela = false
-				love.audio.stop(peqshot)
-				peqspeed = 1
-			end 
-		
-		elseif peqx > cipax+20 and peqy < cipay-20 then
-			peqdirection = 7
-			peqx = peqx-peqspeed
-			peqy = peqy+peqspeed
-		elseif peqx > cipax+20 and peqy > cipay-20 then
-			peqdirection = 2
-			peqx = peqx-peqspeed
-			peqy = peqy-peqspeed
-		elseif peqx < cipax+20 and peqy > cipay-20 then
-			peqdirection = 4
-			peqx = peqx+peqspeed
-			peqy = peqy-peqspeed
-		elseif peqx < cipax+20 then
-			peqdirection = 5
-			peqx = peqx+peqspeed
-		elseif peqx > cipax+20 then
-			peqdirection = 1
-			peqx = peqx-peqspeed
-		elseif peqy < cipay-20 then
-			peqdirection = 6
-			peqy = peqy+peqspeed
-		elseif peqy > cipay-20 then
-			peqdirection = 3
-			peqy = peqy-peqspeed
-		elseif peqx < cipax+20 and peqy < cipay-20 then
-			peqdirection = 6
-			peqx = peqx-peqspeed
-			peqy = peqy+peqspeed
-		end
-	end
-	else love.audio.stop(peqflying)
-	end
-	
-	
+	peqai()
+	timer2()
+	timer1()
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
 	end
-	if timr2==30 then
-	if beanframe==1 then
-	
-			if peqmode == true then
-				if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
-				or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		
-					peq = love.graphics.newImage("pequod/shot1.png")
-				elseif peqdirection == 4 or peqdirection == 5 or peqdirection == 6 then
-					peq = love.graphics.newImage("pequod/peq4.1.png")
-				elseif peqdirection == 1 or peqdirection == 2 or peqdirection == 8 then
-					peq = love.graphics.newImage("pequod/peq3.1.png")
-				elseif peqdirection == 3 or peqdirection == 7 then
-					if peqolddirection == 1 or peqolddirection ==  2 or peqolddirection == 8 then
-						peq = love.graphics.newImage("pequod/peq1.1.png")
-					elseif peqolddirection == 4 or peqolddirection == 5 or peqolddirection == 6 then
-						peq = love.graphics.newImage("pequod/peq2.1.png")
-					else peq = love.graphics.newImage("pequod/peq1.1.png")
-					end
-				end
-			end
-			-------------------------------------------------------------------------
-			
-			
-		if mgsmode==true then
-		 bean=love.graphics.newImage("mgs/solid.gif")
-		 beanframe=2
-		 timr2=0
-		elseif stalkermode==true then
-		 bean=love.graphics.newImage("stalker/stalker.gif")
-		 beanframe=2
-		 timr2=0
-		else
-		  bean=love.graphics.newImage("gosling/gosling.gif")
-		 beanframe=2
-		 timr2=0
-		end
-	 elseif beanframe==2 then
-	 
-	 	 	---------------------------------------------------------------------------
-		if peqmode == true then
-			if (peqx == cipax+20 and peqy == cipay-20) or (peqx == cipax+21 and peqy == cipay-20)
-			or (peqx == cipax+20 and peqy == cipay-21) or (peqx == cipax+21 and peqy == cipay-21) then		
-					peq = love.graphics.newImage("pequod/shot2.png")
-			elseif peqdirection == 1 or peqdirection == 2 or peqdirection == 8 then
-				peq = love.graphics.newImage("pequod/peq3.2.png")
-			elseif peqdirection == 4 or peqdirection == 5 or peqdirection == 6 then
-				peq = love.graphics.newImage("pequod/peq4.2.png")
-			elseif peqdirection == 3 or peqdirection == 7 then
-				if peqolddirection == 1 or peqolddirection ==  2 or peqolddirection == 8 then
-					peq = love.graphics.newImage("pequod/peq1.2.png")
-				elseif peqolddirection == 4 or peqolddirection == 5 or peqolddirection == 6 then
-					peq = love.graphics.newImage("pequod/peq2.2.png")
-				else peq = love.graphics.newImage("pequod/peq1.2.png")
-				end
-			end
-		end
-		-----------------------------------------------------------------------------
-		
-		
-	   if mgsmode==true then
-	   bean=love.graphics.newImage("mgs/solid2.gif")
-	   beanframe=1
-	   timr2=0
-	   elseif stalkermode==true then 
-	   bean=love.graphics.newImage("stalker/stalker2.gif")
-		beanframe=1
-		timr2=0
-	   else
-	    bean=love.graphics.newImage("gosling/gosling2.gif")
-	   beanframe=1
-	   timr2=0
-	   end
-	  end
-	 end
-	if timr==20 then 
-	timr=0
-	gencipa=love.math.random(0,150)
-	if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
-	elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
-	elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
-	elseif iscipa==true and bans>=25000 and bans<150000 and bans-5000>=0 then bans=bans-5000 ispchela=false
-	elseif iscipa==true and bans>=150000 and bans-50000>=0 then bans=bans-50000 ispchela=true
-	elseif iscipa==true and (bans-10<0 or bans==0) and rp-1>=0 then rp=rp-1 ispchela=false end
-	if iscipa==false then
-	 if gencipa==0 then
-	 iscipa=true
-	 cipax = love.math.random(300,400)
-	 cipay = love.math.random(100,300)
-	 end
-	 end
-	 if gencipa==1 then
-	  if willdio==0 then
-	   isfall=true
-	   diomode=true
-	  else
-	  isfall=true 
-	  end
-	 end
-	 if isfall==true then fally=fally+25 end
-	 if fally>=700 and diomode==false then isfall=false fally=1 willdio=love.math.random(0,200) end
-	 if fally>=700 and diomode==true then love.audio.play(dio_end) willdio=love.math.random(0,200) fally=1  end
-	 if diomode==false then
-		if cats>1 then
-			bans=bans+(cats-1)
-		end
-		if felixs>1 then
-			bans=bans+((felixs-1)*10)
-		end
-		if bots>1 then
-			bans=bans+((bots-1)*100)
-		end
-		if zoes>1 then
-			bans=bans+((zoes-1)*1000)
-		end
+	if bans>=48000 and isbanfelix==0 then
+		isbanfelix=1
 	end
-	end
- if bans>=48000 and isbanfelix==0 then
-  isbanfelix=1
- end
 end
 
 function love.mousepressed(x, y, button)
- if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
-  bans=bans+bans_add
-  elseif x>=784 and x<=800 and y>=584 and y<=600 then love.audio.play(slava)
- elseif button=="l" and x>=1 and x<=155 and y>=80 and y<=139 then
-	 if bans>=(10*rp*(cats)) and rp>=2 and bans>=0 then
-		cats=cats+1
-		bans=bans-(10*rp*(cats-1))
-		end
- elseif button=="l" and x>=1 and x<=155 and y>=140 and y<=200 then
-	if bans>=50*rp*(felixs) and rp>=3 and bans>=0 then
-	felixs=felixs+1
-	bans=bans-(50*rp*(felixs-1))
-	end
- elseif button=="l" and x>=1 and x<=155 and y>=263 and y<=323 then
-	if bans>=300*rp*(zoes) and rp>=15 and bans>=0 then
-	zoes=zoes+1
-	bans=bans-(300*rp*(zoes-1))
-	end
-  elseif button=="l" and x>=650 and x<=800 and y>=20 and y<=170 then	
- 	  if bans>=500 and rp>=5 and bans>=0 and ispruglo==false then
-      bans_add=bans_add+1
-      bans=bans-500
-	  ispruglo=true
-	  elseif bans>=500 and rp>=15 and bans>=0 and isuvarov==false and ispruglo==true then
-	  bans_add=bans_add+10
-      bans=bans-2500
-	  isuvarov=true
-	  elseif bans>=10000 and rp>=25 and bans>=0 and isnomad==false and isuvarov==true then
-	  bans_add=bans_add+100
-      bans=bans-10000
-	  love.audio.play(korovan)
-	  isnomad=true
-	  elseif bans>=50000 and rp>=50 and bans>=0 and isjontron==false and isnomad==true then
-	  bans_add=bans_add+1000
-      bans=bans-50000
-	  love.audio.play(ech)
-	  isjontron=true
-	  elseif bans>=250000 and rp>=100 and bans>=0 and isjontron==true and iswho==false then
-	  bans_add=bans_add+10000
-      bans=bans-250000
-	  love.audio.play(who)
-	  iswho=true
-	  end
- elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
-	if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
-	bots=bots+1
-	bans=bans-(100*rp*(bots-1))
-	end
- elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then
-	 if bans>=50*rp and bans>=0 then
-	  bans=bans-(50*rp)
-	  rp=rp+1
-	  end
-elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
-	 if bans>=(50*rp)*10 and bans>=0 then
-	  bans=bans-((50*rp)*10)
-	  rp=rp+10
-	  end
-elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
-	if mgsmode==true then
-	love.audio.play(fallsnake)
-	elseif stalkermode == true then
-	love.audio.play(fallstl)
-	else
-	love.audio.play(fallyee)
-	end
-	 bans=bans+25000
-	 fallx=love.math.random(200,500)
-	 fally=1
-	 isfall=false
-	 love.math.random(0,200)
-elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally and y<=fally+212 then 
-	love.audio.pause()
-	love.audio.play(dio_begin)
-	love.timer.sleep(5)
-	love.audio.play(dio_counting)
-	love.timer.sleep(13)
-	diomode=false
-	isfall=false
-	bans=bans+50000
-	willdio=love.math.random(0,200)
-	fally=1
-	 	 ----------------------------------------------------------- 
- elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
-		if peqmode == false and bans>=150000 then
-		peqmode = true
-		bans = bans - 150000
-		love.audio.play(peqcoming)
-		end
-	 -----------------------------------------------------------
-	 
-	 end
-  if iscipa==true then
-   if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
-  iscipa=false
-  ispchela=false
-    peqspeed = 1	-------------------------------------
-  end
-  end
-  if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
+clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as ^
+if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
    bans=0
    love.audio.play(ors)
    isbanfelix=3
   elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
   love.audio.play(noice)
-  bans=bans+1 -- ( ЭЁ~ ЭЪ ЭЁТА)
+  bans=bans+1 -- lenny face
   isbanfelix=3
   end
 end
@@ -540,15 +243,6 @@ end
 function love.draw()
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)
-end
-if mgsmode==true then
-love.window.setTitle("A Hideo Kojima Game")
-elseif gachimuchimode==true then
-love.window.setTitle("Boy♂Next♂Door♂ ")
-elseif stalkermode==true then
-love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
-else
-love.window.setTitle("ATMTA")
 end
 if ishelp==true then
 love.graphics.draw(help,650,170)
@@ -559,113 +253,11 @@ end
 if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
 end
-love.graphics.draw(riba,784,584)
-love.graphics.draw(bean,300,300)
-love.graphics.setColor(0,0,0)
-love.graphics.print("ATMTA Clicker 0.9t",1,1)
-love.graphics.print("Banned: "..bans,150,1)
-love.graphics.print("MEMES: "..rp,160,550)
-love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)
-love.graphics.setColor(255,255,255)
-love.graphics.draw(ban_b,1,20)
-love.graphics.setColor(133,133,133)
-love.graphics.draw(atmta,1,80)
-love.graphics.draw(felix,1,140)
-love.graphics.draw(bot_b,1,202)
-love.graphics.draw(zoe,1,263)
-love.graphics.setColor(255,255,255)
-if isfall==true then
-	if mgsmode==true then
-		love.graphics.draw(fallingmgs,fallx,fally)
-	elseif stalkermode==true then
-	    love.graphics.draw(fallingstl,fallx,fally)
-	elseif diomode==true then
-	    love.graphics.draw(dio,fallx,fally)
-	else
-	love.graphics.draw(fallingyee,fallx,fally)
-	end
-end
-love.graphics.setColor(133,133,133)
-if peqmode == false then love.graphics.draw(callpeq, 1, 325) love.graphics.setColor(0,0,0) love.graphics.print("150000",170,325) love.graphics.setColor(133,133,133) end					
-if ispruglo==false then
-love.graphics.draw(pruglo,650,20)
-love.graphics.print("500",620,20)
-elseif ispruglo==true and isuvarov==false then
-love.graphics.draw(uvarov,650,20)
-love.graphics.print("2500",610,20)
-elseif isuvarov==true and isnomad==false then
-love.graphics.draw(nomad,650,20)
-love.graphics.print("10000",590,20)
-elseif isnomad==true and isjontron==false then
-love.graphics.draw(jontron,650,20)
-love.graphics.print("50000",590,20)
-elseif isjontron==true and iswho==false then
-love.graphics.draw(who_b,650,20)
-love.graphics.print("250000",580,20)
-end
-love.graphics.draw(forcememe,1,538)
-if rp>=2 then
-love.graphics.setColor(0,0,0)
-love.graphics.print(10*rp*cats.." : "..cats-1,170,80)
-end
-if rp>=3 then
-love.graphics.setColor(0,0,0)
-love.graphics.print(50*rp*felixs.." : "..felixs-1,170,140)
-end
-if rp>=10 then
-love.graphics.setColor(0,0,0)
-love.graphics.print(100*rp*bots.." : "..bots-1,170,200)
-end
-if rp>=15 then
-love.graphics.setColor(0,0,0)
-love.graphics.print(300*rp*zoes.." : "..zoes-1,170,260)
-end
-if bans>=(10*rp*cats) and rp>=2 then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(atmta,1,80)
-end
-if bans>=(50*rp*felixs) and rp>=3 then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(felix,1,140)
-end
-if bans>=(300*rp*zoes) and rp>=15 then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(zoe,1,263)
-end
-if bans>=500 and rp>=5 and ispruglo==false then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(pruglo,650,20)
-end
-if bans>=2500 and rp>=15 and isuvarov==false and ispruglo==true then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(uvarov,650,20)
-end
-if bans>=10000 and rp>=25 and isnomad==false and isuvarov==true then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(nomad,650,20)
-end
-if bans>=50000 and rp>=50 and isjontron==false and isnomad==true then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(jontron,650,20)
-end
-if bans>=250000 and rp>=100 and isjontron==true and iswho==false then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(who_b,650,20)
-end
-if bans>=(100*rp*bots) and rp>=10 then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(bot_b,1,202)
-end
-if bans>=50*rp then
-love.graphics.setColor(255,255,255)
-love.graphics.draw(forcememe,1,538)
-end
-love.graphics.setColor(255,255,255)
-
---------------------------------------------------------------------------
-if bans>=150000 and peqmode == false then
-love.graphics.setColor(255, 255, 255)
-love.graphics.draw(callpeq, 1, 325)
-end
+init() --All da basic drawing & bean
+windowTitles() --Window titles
+fallcheck() --Drawing fallin things~
+greyButtons() --All gray buttons are here
+buttons() --All clickable buttons & their prices~ are here
 if peqmode == true then love.graphics.draw(peq, peqx, peqy) end
+love.graphics.setColor(255,255,255)
 end
