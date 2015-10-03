@@ -586,7 +586,7 @@ if isfall==true then
 	end
 end
 love.graphics.setColor(133,133,133)
-if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
+if peqmode == false then love.graphics.draw(callpeq, 1, 325) love.graphics.setColor(0,0,0) love.graphics.print("150000",170,325) love.graphics.setColor(133,133,133) end					
 if ispruglo==false then
 love.graphics.draw(pruglo,650,20)
 love.graphics.print("500",620,20)
