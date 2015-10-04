@@ -182,42 +182,68 @@ function love.keypressed(key)
 	  love.audio.pause()
       love.audio.play(music2)
 	elseif key=="3" then
-	 stalkermode=false
-	 gachimuchimode=false
-	 mgsmode=true
-	 --bans=bans+100000
-	 love.audio.pause()
-	 love.audio.play(mgsnuclear)
-	 elseif key=="4" then
-	 stalkermode=false
-	 gachimuchimode=false
-	 mgsmode=false
-	 love.audio.pause()
-	 love.audio.play(darude)
-	 elseif key=="5" then
-	 stalkermode=false
-	 mgsmode=false
-	 gachimuchimode=true
-	 love.audio.pause()
-	 love.audio.play(gachimuchi)
-	 elseif key=="6" then
-	 mgsmode=false
-	 gachimuchimode=false
-	 stalkermode=true 
-	 love.audio.pause()
-	 love.audio.play(stalker)
-	 elseif key=='h' or key=='H'or key=='р' or key=='Р' then
-	  if ishelp==true then
-	  ishelp=false
-	  else
-	  ishelp=true
-	  end
+		stalkermode=false
+		gachimuchimode=false
+		mgsmode=true
+		--bans=bans+100000
+		love.audio.pause()
+		love.audio.play(mgsnuclear)
+	elseif key=="4" then
+		stalkermode=false
+		gachimuchimode=false
+		mgsmode=false
+		love.audio.pause()
+		love.audio.play(darude)
+	elseif key=="5" then
+		stalkermode=false
+		mgsmode=false
+		gachimuchimode=true
+		love.audio.pause()
+		love.audio.play(gachimuchi)
+	elseif key=="6" then
+		mgsmode=false
+		gachimuchimode=false
+		stalkermode=true 
+		love.audio.pause()
+		love.audio.play(stalker)
+	elseif key=='h' or key=='H'or key=='р' or key=='Р' then
+		if ishelp==true then
+			ishelp=false
+		else
+			ishelp=true
+		end
+	elseif key == "kp8" and inputline == "8" then
+		inputline = "88"
+	elseif key == "kp8" then
+		inputline = "8"
+	elseif key == "kp0" and inputline == "88" then
+		inputline = "880"
+	elseif key == "kp0" and inputline == "880" then
+		inputline = "8800"
+	elseif key == "kp5" and inputline == "8800" then
+		inputline = "88005"
+	elseif key == "kp5" and inputline == "88005" then
+		inputline = "880055"
+	elseif key == "kp5" and inputline == "880055" then
+		inputline = "8800555"
+	elseif key == "kp3" and inputline == "8800555" then
+		inputline = "88005553"
+	elseif key == "kp5" and inputline == "88005553" then
+		inputline = "880055535"
+	elseif key == "kp3" and inputline == "880055535" then
+		inputline = "8800555353"
+	elseif key == "kp5" and inputline == "8800555353" then
+		bans = bans + 100
+		---TODO add lulz here
 end
 end
+
+
 function love.textinput(t)
     text = t
 	
 end
+
 function love.quit()
 	if love.filesystem.exists("sv") then 
 	love.filesystem.remove("sv")
