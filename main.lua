@@ -79,6 +79,7 @@ peqshot:setVolume(0.1)
 fallsnake:setVolume(0.7)
 fallstl:setVolume(0.7)
 fallyee:setVolume(0.7)
+eightfive:setVolume(0.2)
 
 timr=0
 timr2=0
