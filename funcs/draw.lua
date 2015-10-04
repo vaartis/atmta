@@ -27,7 +27,7 @@ function greyButtons() --All gray buttons are here
 	love.graphics.draw(felix,1,140)
 	love.graphics.draw(bot_b,1,202)
 	love.graphics.draw(zoe,1,263)
-	if peqmode == false then love.graphics.draw(callpeq, 1, 325 end					
+	if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
 	if ispruglo==false then
 		love.graphics.draw(pruglo,650,20)
 		love.graphics.print("500",620,20)
