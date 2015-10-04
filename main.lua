@@ -48,6 +48,7 @@ stalker = love.audio.newSource("stalker/stalker.ogg",stream)
 peqflying = love.audio.newSource("pequod/chopper.ogg", stream)
 peqcoming = love.audio.newSource("pequod/PeqComing.ogg",static)
 peqshot = love.audio.newSource("pequod/shot.ogg", static)
+eightfive = love.audio.newSource("sound/8800.ogg", static)
 fallsnake = love.audio.newSource("falling/mgs.ogg", static)
 fallstl = love.audio.newSource("falling/stalker.ogg", static)
 fallyee = love.audio.newSource("falling/yee.ogg", static)
@@ -234,7 +235,7 @@ function love.keypressed(key)
 		inputline = "8800555353"
 	elseif key == "kp5" and inputline == "8800555353" then
 		bans = bans + 100
-		---TODO add lulz here
+		love.audio.play(eightfive)
 end
 end
 
