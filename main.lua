@@ -2,6 +2,7 @@ function love.load()
 require("funcs/draw")
 require("funcs/mousepressed")
 require("funcs/update")
+bg = love.graphics.newImage("bg.jpg")
 love.keyboard.setTextInput(false)
 love.graphics.setBackgroundColor(255,255,255)
 atmta = love.graphics.newImage("buttons/button1.jpg")
@@ -24,7 +25,7 @@ peq = love.graphics.newImage("pequod/peq3.1.png")
 callpeq = love.graphics.newImage("pequod/callpeq.png")
 icon = love.image.newImageData("ico.jpg")
 love.window.setIcon(icon)
-font = love.graphics.newFont(love._vera_ttf, 14)
+font = love.graphics.newFont("averia-bold.ttf", 14)
 love.graphics.setFont(font)
 
 fallingyee = love.graphics.newImage("falling/yee.png")
@@ -266,6 +267,7 @@ if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
 end
 
 function love.draw()
+love.graphics.draw(bg,1,1)
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)
 end

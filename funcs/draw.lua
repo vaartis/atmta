@@ -30,19 +30,29 @@ function greyButtons() --All gray buttons are here
 	if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
 	if ispruglo==false then
 		love.graphics.draw(pruglo,650,20)
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("500",620,20)
+		love.graphics.setColor(255,255,255)
 	elseif ispruglo==true and isuvarov==false then
 		love.graphics.draw(uvarov,650,20)
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("2500",610,20)
+		love.graphics.setColor(255,255,255)
 	elseif isuvarov==true and isnomad==false then
 		love.graphics.draw(nomad,650,20)
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("10000",590,20)
+		love.graphics.setColor(255,255,255)
 	elseif isnomad==true and isjontron==false then
 		love.graphics.draw(jontron,650,20)
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("50000",590,20)
+		love.graphics.setColor(255,255,255)
 	elseif isjontron==true and iswho==false then
 		love.graphics.draw(who_b,650,20)
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("250000",580,20)
+		love.graphics.setColor(255,255,255)
 	end
 	love.graphics.draw(forcememe,1,538)
 end
