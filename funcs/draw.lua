@@ -54,6 +54,8 @@ function fallcheck() --Drawing fallin things~
 			love.graphics.draw(fallingstl,fallx,fally)
 		elseif diomode==true then
 			love.graphics.draw(dio,fallx,fally)
+		elseif gachimuchimode==true then
+			love.graphics.draw(fallinggachimuchi,fallx,fally)
 		else
 			love.graphics.draw(fallingyee,fallx,fally)
 		end

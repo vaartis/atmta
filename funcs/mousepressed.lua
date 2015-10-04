@@ -62,10 +62,12 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 			love.audio.play(fallsnake)
 		elseif stalkermode == true then
 			love.audio.play(fallstl)
+		elseif gachimuchimode==true then
+			love.audio.play(fallgachimuchi)
 		else
 			love.audio.play(fallyee)
 		end
-		bans=bans+25000
+		bans=bans+(5000*rp)
 		fallx=love.math.random(200,500)
 		fally=1
 		isfall=false
@@ -78,7 +80,7 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 		love.timer.sleep(13)
 		diomode=false
 		isfall=false
-		bans=bans+50000
+		bans=bans+(25000*rp)
 		willdio=love.math.random(0,200)
 		fally=1
 	elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 

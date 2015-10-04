@@ -110,6 +110,10 @@ function timer2() --All da 2nd timer stuff (peq graphics update,bean)
 		 bean=love.graphics.newImage("mgs/solid.gif")
 		 beanframe=2
 		 timr2=0
+		elseif gachimuchimode==true then
+		 bean=love.graphics.newImage("gachimuchi/gachimuchi.png")
+		 beanframe=2
+		 timr2=0
 		elseif stalkermode==true then
 		 bean=love.graphics.newImage("stalker/stalker.gif")
 		 beanframe=2
@@ -146,8 +150,12 @@ function timer2() --All da 2nd timer stuff (peq graphics update,bean)
 	   bean=love.graphics.newImage("mgs/solid2.gif")
 	   beanframe=1
 	   timr2=0
+	   elseif gachimuchimode==true then
+	    bean=love.graphics.newImage("gachimuchi/gachimuchi2.png")
+		beanframe=1
+		timr2=0
 	   elseif stalkermode==true then 
-	   bean=love.graphics.newImage("stalker/stalker2.gif")
+	    bean=love.graphics.newImage("stalker/stalker2.gif")
 		beanframe=1
 		timr2=0
 	   else
@@ -161,7 +169,7 @@ end
 function timer1() --All da first timer stuff (Bans+,cipa,falling stuff)
 	if timr==20 then 
 		timr=0
-		gencipa=love.math.random(0,150)
+		gencipa=love.math.random(1,1)
 		if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
 		elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
 		elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
