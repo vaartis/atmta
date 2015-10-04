@@ -1,3 +1,32 @@
+function BearSounds()	-- Volodya Medved sounds when not enough bans
+	if  bearstate == 2 then
+		bearsound = love.audio.newSource("sound/bear2.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 3
+	elseif bearstate == 3 then
+		bearsound = love.audio.newSource("sound/bear3.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 4
+	elseif bearstate == 4 then
+		bearsound = love.audio.newSource("sound/bear4.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 5
+	elseif bearstate == 5 then
+		bearsound = love.audio.newSource("sound/bear5.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 6
+	elseif bearstate == 6 then
+		bearsound = love.audio.newSource("sound/bear6.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 1
+	else
+		bearsound = love.audio.newSource("sound/bear1.ogg", static)
+		love.audio.play(bearsound)
+		bearstate = 2
+	end
+end
+		
+
 function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same as line 430
 	if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
 		bans=bans+bans_add
@@ -6,16 +35,19 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 		if bans>=(10*rp*(cats)) and rp>=2 and bans>=0 then
 			cats=cats+1
 			bans=bans-(10*rp*(cats-1))
+		else BearSounds()
 		end
 	elseif button=="l" and x>=1 and x<=155 and y>=140 and y<=200 then
 		if bans>=50*rp*(felixs) and rp>=3 and bans>=0 then
 			felixs=felixs+1
 			bans=bans-(50*rp*(felixs-1))
+		else BearSounds()
 		end 
 	elseif button=="l" and x>=1 and x<=155 and y>=263 and y<=323 then
 		if bans>=300*rp*(zoes) and rp>=15 and bans>=0 then
 			zoes=zoes+1
 			bans=bans-(300*rp*(zoes-1))
+		else BearSounds()
 		end
 	elseif button=="l" and x>=650 and x<=800 and y>=20 and y<=170 then	
 		if bans>=500 and rp>=5 and bans>=0 and ispruglo==false then
@@ -46,11 +78,13 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 		if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
 			bots=bots+1
 			bans=bans-(100*rp*(bots-1))
+		else BearSounds()
 		end
 	elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then
 		if bans>=50*rp and bans>=0 then
 			bans=bans-(50*rp)
 			rp=rp+1
+		else BearSounds()
 		end
 	elseif button=="r" and x>=1 and x<=155 and y>=538 and y<=600 then
 		if bans>=(50*rp)*10 and bans>=0 then
@@ -88,6 +122,7 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 			peqmode = true
 			bans = bans - 150000
 			love.audio.play(peqcoming)
+		else BearSounds()
 		end
 	 
 	 end
