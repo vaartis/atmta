@@ -175,9 +175,15 @@ function timer1() --All da first timer stuff (Bans+,cipa,falling stuff)
 		elseif iscipa==true and bans>=15000 and bans<25000 and bans-3000>=0 then bans=bans-1000 ispchela=false
 		elseif iscipa==true and bans>=25000 and bans<150000 and bans-5000>=0 then bans=bans-5000 ispchela=false
 		elseif iscipa==true and bans>=150000 and bans-50000>=0 then bans=bans-50000 ispchela=true
-		elseif iscipa==true and (bans-10<0 or bans==0) and rp-1>=0 then rp=rp-1 ispchela=false end
+		elseif iscipa==true and (bans-10<0 or bans==0) and rp-1>=0 then rp=rp-1 ispchela=false 
+		elseif rollermode==true and bans-(5000*rp)>=0 then bans=bans-5000*rp end
 		if iscipa==false then
 		 if gencipa==0 then
+		  if willroller==0 then 
+			rollermode=true
+			ispchela=false
+			iscipa=false
+			end
 		 iscipa=true
 		 cipax = love.math.random(300,400)
 		 cipay = love.math.random(100,300)

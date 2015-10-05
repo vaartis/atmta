@@ -33,7 +33,7 @@ function BearSounds()	-- Volodya Medved sounds when not enough bans
 end
 		
 
-function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same as line 430
+function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as line 430
 	if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
 		bans=bans+bans_add
 	elseif x>=784 and x<=800 and y>=584 and y<=600 then love.audio.play(slava)
@@ -141,7 +141,14 @@ function clicks(x,y,button) --Buttons and YEE click check.X,y,click sre the same
 		if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
 			iscipa=false
 			ispchela=false
+			willroller=love.math.random(0,200)
 			peqspeed = 1
+		elseif button=="l" and x>=cipax and x<=cipax+331 and y>=cipay and y<=cipay+161 and rollermode==true then
+		iscipa=false
+		ifpchela=false
+		rollermode=false
+		love.audio.play(roller_s)
+		willroller=love.math.random(0,200)
 		end
 	end
 end

@@ -141,12 +141,16 @@ ishelp=false
 iscipa=false
 ispchela=false
 isfall=false
-willdio=9
+willdio=love.math.random(0,200)
 diomode=false
 dio=love.graphics.newImage("dio/dio.png")
 dio_begin = love.audio.newSource("dio/zawarudo.ogg", static)
 dio_counting = love.audio.newSource("dio/count.ogg", static)
 dio_end = love.audio.newSource("dio/end.ogg", static)
+willroller=love.math.random(0,200)
+rollermode=false
+roller_i=love.graphics.newImage("dio/roller.gif")
+roller_s = love.audio.newSource("dio/roller.ogg", static)
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
@@ -248,11 +252,6 @@ end
 end
 
 
-function love.textinput(t)
-    text = t
-	
-end
-
 function love.quit()
 	saves["bans"] = bans
 	saves["cats"] = cats
@@ -307,8 +306,10 @@ end
 if ishelp==true then
 love.graphics.draw(help,650,170)
 end
-if iscipa==true and ispchela==false then
+if iscipa==true and rollermode==false then
 love.graphics.draw(cipa,cipax,cipay)
+elseif rollermode==true then 
+	love.graphics.draw(roller_i,cipax-100,cipay)
 end
 if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
