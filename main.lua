@@ -2,6 +2,9 @@ function love.load()
 require("funcs/draw")
 require("funcs/mousepressed")
 require("funcs/update")
+slib = require "funcs/slib"
+slib.init("slib")
+saves = {}
 bg = love.graphics.newImage("bg.jpg")
 love.keyboard.setTextInput(false)
 love.graphics.setBackgroundColor(255,255,255)
@@ -101,25 +104,43 @@ fally=1
 
 cipax = 400 
 cipay = 300
-
-bans=0
-cats=1
-felixs=1
-bots=1
-rp=1
-zoes=1
-bans_add=1
-isbanfelix=0
+if slib.isFirst("save") == true then 
+	bans=0
+	cats=1
+	felixs=1
+	bots=1
+	rp=1
+	zoes=1
+	bans_add=1
+	isbanfelix=0
+	ispruglo=false
+	isuvarov=false
+	isnomad=false
+	isjontron=false
+	iswho=false
+	peqmode=false
+else
+saves=slib.load("save")
+bans=saves["bans"]
+cats=saves["cats"] 
+felixs=saves["felixs"]
+bots=saves["bots"] 
+rp=saves["rp"] 
+zoes=saves["zoes"] 
+bans_add=saves["bans_add"] 
+isbanfelix=saves["isbanfelix"]
+ispruglo=saves["ispruglo"] 
+isuvarov=saves["isuvarov"]
+isnomad=saves["isnomad"] 
+isjontron=saves["isjontron"]
+iswho=saves["iswho"]
+peqmode=saves["peqmode"] 
+end
 ishelp=false
-ispruglo=false
-isuvarov=false
-isnomad=false
-isjontron=false
-iswho=false
+
 iscipa=false
 ispchela=false
 isfall=false
-
 willdio=9
 diomode=false
 dio=love.graphics.newImage("dio/dio.png")
@@ -233,18 +254,21 @@ function love.textinput(t)
 end
 
 function love.quit()
-	if love.filesystem.exists("sv") then 
-	love.filesystem.remove("sv")
-	love.filesystem.newFile("sv")
-	love.filesystem.append("sv",bans.."\n")
-	love.filesystem.append("sv",cats.."\n")
-	love.filesystem.append("sv",felixs)
-	else
-	love.filesystem.newFile("sv")
-	love.filesystem.append("sv",bans.."\n")
-	love.filesystem.append("sv",cats.."\n")
-	love.filesystem.append("sv",felixs)
-   end
+	saves["bans"] = bans
+	saves["cats"] = cats
+	saves["felixs"] = felixs
+	saves["bots"] = bots
+	saves["rp"] = rp
+	saves["zoes"] = zoes
+	saves["bans_add"] = bans_add
+	saves["isbanfelix"] = isbanfelix
+	saves["ispruglo"] = ispruglo
+	saves["isuvarov"]= isuvarov
+	saves["isnomad"] = isnomad
+	saves["isjontron"] = isjontron
+	saves["iswho"] = iswho
+	saves["peqmode"] = peqmode
+	slib.save(saves,"save")
  end  
 
 function love.update(dt)
@@ -276,6 +300,7 @@ end
 
 function love.draw()
 love.graphics.draw(bg,1,1)
+
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)
 end
