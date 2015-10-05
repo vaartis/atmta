@@ -27,6 +27,7 @@ function greyButtons() --All gray buttons are here
 	love.graphics.draw(felix,1,140)
 	love.graphics.draw(bot_b,1,202)
 	love.graphics.draw(zoe,1,263)
+	love.graphics.draw(forcememe,1,538)
 	if peqmode == false then love.graphics.draw(callpeq, 1, 325) end					
 	if ispruglo==false then
 		love.graphics.draw(pruglo,650,20)
@@ -54,7 +55,6 @@ function greyButtons() --All gray buttons are here
 		love.graphics.print("250000",580,20)
 		love.graphics.setColor(255,255,255)
 	end
-	love.graphics.draw(forcememe,1,538)
 end
 function fallcheck() --Drawing fallin things~
 	if isfall==true then

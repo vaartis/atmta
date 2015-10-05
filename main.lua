@@ -110,7 +110,6 @@ rp=1
 zoes=1
 bans_add=1
 isbanfelix=0
-issorry=0
 ishelp=false
 ispruglo=false
 isuvarov=false
@@ -154,19 +153,6 @@ help = love.graphics.newCanvas(150,400)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("line",1,1,150,399)
 	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (1000bans/s)\n WHO?! : 100 MEMES \n (+10000bans/click)")
-sorry = love.graphics.newCanvas(200,100)
-	love.graphics.setCanvas(sorry)
-	love.graphics.setColor(133,133,133)
-	love.graphics.rectangle("fill",1,1,198,98)
-	love.graphics.setColor(0,0,0)
-	love.graphics.rectangle("line",1,1,198,98)
-	love.graphics.print("\n            Oh shit,im sorry..")
-	love.graphics.setColor(255,255,255)
-	love.graphics.rectangle("fill",20,70,50,20)
-	love.graphics.setColor(0,0,0)
-	love.graphics.print("Ok",30,75)
-	love.graphics.rectangle("line",20,70,50,20)
-	love.keyboard.setTextInput(true)
  love.graphics.setCanvas()
 end
 
@@ -262,10 +248,6 @@ function love.quit()
  end  
 
 function love.update(dt)
-	if text=="oh shit im sorry" and issorry==1 then
-		issorry=2
-		bans=bans+2000000
-	end
 		timr=timr+1
 		timr2=timr2+1
 		peqai()
@@ -276,8 +258,6 @@ function love.update(dt)
 	end
 	if bans>=48000 and isbanfelix==0 then
 		isbanfelix=1
-	elseif bans>=1000000 and issorry==0 then
-		issorry=1
 	end
 end
 
@@ -298,10 +278,6 @@ function love.draw()
 love.graphics.draw(bg,1,1)
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)
-end
-if issorry==1 then
-love.graphics.draw(sorry,400,100)
-love.graphics.print(text,400,300)
 end
 if ishelp==true then
 love.graphics.draw(help,650,170)
