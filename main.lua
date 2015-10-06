@@ -28,7 +28,7 @@ peq = love.graphics.newImage("pequod/peq3.1.png")
 callpeq = love.graphics.newImage("pequod/callpeq.png")
 icon = love.image.newImageData("ico.jpg")
 love.window.setIcon(icon)
-font = love.graphics.newFont("averia-bold.ttf", 14)
+font = love.graphics.newFont("Averia-Bold.ttf", 14)
 love.graphics.setFont(font)
 
 fallingyee = love.graphics.newImage("falling/yee.png")
