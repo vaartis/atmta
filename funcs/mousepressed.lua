@@ -36,12 +36,12 @@ end
 function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as line 430
 	if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
 		bans=bans+bans_add
-		if clicktime < 100 then
+		if clicktime < 20 then
 			clickcount = clickcount + 1
 			clicktime = 0
 		else clickcount = 0
 		end
-		if clickcount > 10 then
+		if clickcount > 35 then
 			love.audio.play(ora)
 		else love.audio.stop(ora)
 		end

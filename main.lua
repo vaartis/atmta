@@ -282,7 +282,7 @@ function love.update(dt)
 		peqai()
 		timer2()
 		timer1()
-		if clicktime < 500 then 
+		if clicktime < 21 then 
 			clicktime = clicktime + 1
 		else clicktime = 0 love.audio.stop(ora)
 		end
