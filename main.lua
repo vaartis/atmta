@@ -36,6 +36,7 @@ fallingmgs = love.graphics.newImage("falling/mgs.png")
 fallingstl = love.graphics.newImage("falling/stalker.png") 
 fallinggachimuchi= love.graphics.newImage("falling/gachimuchi.png") 
 
+
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
@@ -56,6 +57,7 @@ fallsnake = love.audio.newSource("falling/mgs.ogg", static)
 fallstl = love.audio.newSource("falling/stalker.ogg", static)
 fallyee = love.audio.newSource("falling/yee.ogg", static)
 fallgachimuchi=love.audio.newSource("falling/gachimuchi.ogg", static)
+ora = love.audio.newSource("sound/ora.ogg", static)
 
 darude:setLooping(true)
 music:setLooping(true)
@@ -64,6 +66,7 @@ mgsnuclear:setLooping(true)
 gachimuchi:setLooping(true)
 stalker:setLooping(true)
 peqflying:setLooping(true)
+ora:setLooping(true)
 
 love.audio.play(music)
 music:setVolume(0.1)
@@ -83,6 +86,7 @@ fallsnake:setVolume(0.7)
 fallstl:setVolume(0.7)
 fallyee:setVolume(0.7)
 eightfive:setVolume(0.2)
+ora:setVolume(0.8)
 
 timr=0
 timr2=0
@@ -90,6 +94,8 @@ beanframe=1
 mgsmode=false
 gachimuchimode=false
 stalkermode=false
+clicktime = 0
+clickcount = 0
 
 peqmode=false						
 peqx = 1100							
@@ -147,7 +153,7 @@ dio=love.graphics.newImage("dio/dio.png")
 dio_begin = love.audio.newSource("dio/zawarudo.ogg", static)
 dio_counting = love.audio.newSource("dio/count.ogg", static)
 dio_end = love.audio.newSource("dio/end.ogg", static)
-willroller=love.math.random(0,200)
+willroller=love.math.random(0,0)
 rollermode=false
 roller_i=love.graphics.newImage("dio/roller.gif")
 roller_s = love.audio.newSource("dio/roller.ogg", static)
@@ -276,12 +282,17 @@ function love.update(dt)
 		peqai()
 		timer2()
 		timer1()
+		if clicktime < 500 then 
+			clicktime = clicktime + 1
+		else clicktime = 0 love.audio.stop(ora)
+		end
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
 	end
 	if bans>=48000 and isbanfelix==0 then
 		isbanfelix=1
 	end
+	
 end
 
 function love.mousepressed(x, y, button)
@@ -321,4 +332,5 @@ greyButtons() --All gray buttons are here
 buttons() --All clickable buttons & their prices~ are here
 if peqmode == true then love.graphics.draw(peq, peqx, peqy) end
 love.graphics.setColor(255,255,255)
+
 end
