@@ -143,6 +143,7 @@ iswho=saves["iswho"]
 peqmode=saves["peqmode"] 
 end
 ishelp=false
+inputline = ""
 
 iscipa=false
 ispchela=false
@@ -233,6 +234,8 @@ function love.keypressed(key)
 		end
 	elseif key == "kp8" and inputline == "8" then
 		inputline = "88"
+	elseif key == "kp8" and inputline == "88" then
+		--placeholder
 	elseif key == "kp8" then
 		inputline = "8"
 	elseif key == "kp0" and inputline == "88" then
@@ -254,6 +257,8 @@ function love.keypressed(key)
 	elseif key == "kp5" and inputline == "8800555353" then
 		bans = bans + 100
 		love.audio.play(eightfive)
+		inputline = ""
+	else inputline = ""
 end
 end
 
