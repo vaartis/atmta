@@ -1,35 +1,11 @@
 function BearSounds()	-- Volodya Medved sounds when not enough bans
-	if  bearstate == 2 then
-		bearsound = love.audio.newSource("sound/bear2.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
-		bearstate = 3
-	elseif bearstate == 3 then
-		bearsound = love.audio.newSource("sound/bear3.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
-		bearstate = 4
-	elseif bearstate == 4 then
-		bearsound = love.audio.newSource("sound/bear4.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
-		bearstate = 5
-	elseif bearstate == 5 then
-		bearsound = love.audio.newSource("sound/bear5.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
-		bearstate = 6
-	elseif bearstate == 6 then
-		bearsound = love.audio.newSource("sound/bear6.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
+	if bearstate == nil or bearstate == 6 then 
 		bearstate = 1
-	else
-		bearsound = love.audio.newSource("sound/bear1.ogg", static)
-		bearsound:setVolume(0.6)
-		love.audio.play(bearsound)
-		bearstate = 2
+	else bearstate = bearstate+1
 	end
+	bearsound = love.audio.newSource("sound/bear"..bearstate..".ogg", static)
+	bearsound:setVolume(0.6)
+	love.audio.play(bearsound)
 end
 		
 
