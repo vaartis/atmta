@@ -106,15 +106,15 @@ function timer2() --All da 2nd timer stuff (peq graphics update,bean)
 				end
 			end
 						
-		if mgsmode==true then
+		if mode == "mgs" then
 		 bean=love.graphics.newImage("mgs/solid.gif")
 		 beanframe=2
 		 timr2=0
-		elseif gachimuchimode==true then
+		elseif mode == "gachimuchi" then
 		 bean=love.graphics.newImage("gachimuchi/gachimuchi.png")
 		 beanframe=2
 		 timr2=0
-		elseif stalkermode==true then
+		elseif mode == "stalker" then
 		 bean=love.graphics.newImage("stalker/stalker.gif")
 		 beanframe=2
 		 timr2=0
@@ -146,15 +146,15 @@ function timer2() --All da 2nd timer stuff (peq graphics update,bean)
 		-----------------------------------------------------------------------------
 		
 		
-	   if mgsmode==true then
+	   if mode == "mgs" then
 	   bean=love.graphics.newImage("mgs/solid2.gif")
 	   beanframe=1
 	   timr2=0
-	   elseif gachimuchimode==true then
+	   elseif mode == "gachimuchi" then
 	    bean=love.graphics.newImage("gachimuchi/gachimuchi2.png")
 		beanframe=1
 		timr2=0
-	   elseif stalkermode==true then 
+	   elseif mode == "stalker" then 
 	    bean=love.graphics.newImage("stalker/stalker2.gif")
 		beanframe=1
 		timr2=0
