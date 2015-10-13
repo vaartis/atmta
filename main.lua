@@ -91,11 +91,10 @@ ora:setVolume(0.8)
 timr=0
 timr2=0
 beanframe=1
-mgsmode=false
-gachimuchimode=false
-stalkermode=false
+mode = ""
 clicktime = 0
 clickcount = 0
+inputline = ""
 
 peqmode=false						
 peqx = 1100							
@@ -103,8 +102,8 @@ peqy = love.math.random(100, 500)
 peqframes = -300						
 peqdirection = 1					
 peqrange = love.math.random(150, 300)	
-peqspeed = 1	
-					
+peqspeed = 1
+
 fallx=love.math.random(200,500)
 fally=1
 
@@ -190,40 +189,28 @@ end
 
 function love.keypressed(key)
       if key=="1" then 
-      stalkermode=false
-      gachimuchimode=false
-	  mgsmode=false
+      mode = ""
 	  love.audio.pause()
       love.audio.play(music)
    elseif key=="2" then
-      stalkermode=false
-      gachimuchimode=false
-      mgsmode=false
+      mode = ""
 	  love.audio.pause()
       love.audio.play(music2)
 	elseif key=="3" then
-		stalkermode=false
-		gachimuchimode=false
-		mgsmode=true
+		mode = "mgs"
 		--bans=bans+100000
 		love.audio.pause()
 		love.audio.play(mgsnuclear)
 	elseif key=="4" then
-		stalkermode=false
-		gachimuchimode=false
-		mgsmode=false
+		mode = ""
 		love.audio.pause()
 		love.audio.play(darude)
 	elseif key=="5" then
-		stalkermode=false
-		mgsmode=false
-		gachimuchimode=true
+		mode = "gachimuchi"
 		love.audio.pause()
 		love.audio.play(gachimuchi)
 	elseif key=="6" then
-		mgsmode=false
-		gachimuchimode=false
-		stalkermode=true 
+		mode = "stalker" 
 		love.audio.pause()
 		love.audio.play(stalker)
 	elseif key=='h' or key=='H'or key=='р' or key=='Р' then
@@ -232,34 +219,19 @@ function love.keypressed(key)
 		else
 			ishelp=true
 		end
-	elseif key == "kp8" and inputline == "8" then
-		inputline = "88"
-	elseif key == "kp8" and inputline == "88" then
-		--placeholder
-	elseif key == "kp8" then
-		inputline = "8"
-	elseif key == "kp0" and inputline == "88" then
-		inputline = "880"
-	elseif key == "kp0" and inputline == "880" then
-		inputline = "8800"
-	elseif key == "kp5" and inputline == "8800" then
-		inputline = "88005"
-	elseif key == "kp5" and inputline == "88005" then
-		inputline = "880055"
-	elseif key == "kp5" and inputline == "880055" then
-		inputline = "8800555"
-	elseif key == "kp3" and inputline == "8800555" then
-		inputline = "88005553"
-	elseif key == "kp5" and inputline == "88005553" then
-		inputline = "880055535"
-	elseif key == "kp3" and inputline == "880055535" then
-		inputline = "8800555353"
-	elseif key == "kp5" and inputline == "8800555353" then
-		bans = bans + 100
-		love.audio.play(eightfive)
+	elseif key == "kp8" or key == "kp0" or key == "kp3" or key == "kp5" then
+		inputline = inputline..string.sub(key, 3,3)
+		if inputline == string.sub("88005553535", 1, string.len(inputline)) then
+			if inputline == "88005553535" then
+				love.audio.play(eightfive)
+				inputline = ""
+			end
+		else
+			inputline = ""
+		end
+	else
 		inputline = ""
-	else inputline = ""
-end
+end 
 end
 
 

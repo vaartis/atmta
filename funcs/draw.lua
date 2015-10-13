@@ -11,11 +11,11 @@ function init() --All da basic drawing & bean
 	love.graphics.setColor(255,255,255)
 end
 function windowTitles() --Window titles
-	if mgsmode==true then
+	if mode == "mgs" then
 		love.window.setTitle("A Hideo Kojima Game")
-	elseif gachimuchimode==true then
+	elseif mode == "gachimuchi" then
 		love.window.setTitle("Boy♂Next♂Door♂ ")
-	elseif stalkermode==true then
+	elseif mode == "stalker" then
 		love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
 	else
 		love.window.setTitle("ATMTA")
@@ -58,13 +58,13 @@ function greyButtons() --All gray buttons are here
 end
 function fallcheck() --Drawing fallin things~
 	if isfall==true then
-		if mgsmode==true then
+		if mode == "mgs" then
 			love.graphics.draw(fallingmgs,fallx,fally)
-		elseif stalkermode==true then
+		elseif mode == "stalker" then
 			love.graphics.draw(fallingstl,fallx,fally)
-		elseif diomode==true then
+		elseif mode == "dio" then
 			love.graphics.draw(dio,fallx,fally)
-		elseif gachimuchimode==true then
+		elseif mode == "gachimuchi" then
 			love.graphics.draw(fallinggachimuchi,fallx,fally)
 		else
 			love.graphics.draw(fallingyee,fallx,fally)
