@@ -5,9 +5,12 @@ require("funcs/update")
 slib = require "funcs/slib"
 slib.init("slib")
 saves = {}
-bg = love.graphics.newImage("bg.jpg")
 love.keyboard.setTextInput(false)
 love.graphics.setBackgroundColor(255,255,255)
+
+bg = love.graphics.newImage("bg/bg.jpg")
+bg_stalker = love.graphics.newImage("bg/bg_stalker.jpg")
+
 atmta = love.graphics.newImage("buttons/button1.jpg")
 felix = love.graphics.newImage("buttons/button2.jpg")
 bot_b = love.graphics.newImage("buttons/button3.jpg")
@@ -286,7 +289,12 @@ if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
 end
 
 function love.draw()
-love.graphics.draw(bg,1,1)
+
+if mode == "stalker" then
+	love.graphics.draw(bg_stalker,1,1)
+else
+	love.graphics.draw(bg,1,1)
+end
 
 if isbanfelix==1 then
 love.graphics.draw(banfelix,400,100)

@@ -2,7 +2,7 @@ function init() --All da basic drawing & bean
 	love.graphics.draw(riba,784,584)
 	love.graphics.draw(bean,300,300)
 	love.graphics.setColor(0,0,0)
-	love.graphics.print("ATMTA Clicker 0.9t",1,1)
+	love.graphics.print("ATMTA Clicker 1.0t",1,1)
 	love.graphics.print("Banned: "..bans,150,1)
 	love.graphics.print("MEMES: "..rp,160,550)
 	love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)

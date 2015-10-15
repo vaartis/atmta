@@ -88,11 +88,11 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 			rp=rp+10
 		end
 	elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
-		if mgsmode==true then
+		if mode == "mgs" then
 			love.audio.play(fallsnake)
-		elseif stalkermode == true then
+		elseif mode == "stalker" then
 			love.audio.play(fallstl)
-		elseif gachimuchimode==true then
+		elseif mode == "gachimuchi" then
 			love.audio.play(fallgachimuchi)
 		else
 			love.audio.play(fallyee)
