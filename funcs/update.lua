@@ -1,6 +1,10 @@
 function peqai() --peq AI
 	if peqmode == true then
-		love.audio.play(peqflying)
+		if mode == "stalker" then
+			love.audio.play(peqflying_st)
+		else
+			love.audio.play(peqflying)
+		end
 		peqframes = peqframes+peqspeed
 		if iscipa == false then									
 			if peqframes < peqrange then
@@ -81,7 +85,7 @@ function peqai() --peq AI
 				peqy = peqy+peqspeed
 			end
 		end
-		else love.audio.stop(peqflying)
+		else --love.audio.stop(peqflying) love.audio.stop(peqflying_st)	commented, no difference, so dont needed?
 		end
 end
 function timer2() --All da 2nd timer stuff (peq graphics update,bean)

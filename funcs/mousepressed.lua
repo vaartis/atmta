@@ -3,7 +3,11 @@ function BearSounds()	-- Volodya Medved sounds when not enough bans
 		bearstate = 1
 	else bearstate = bearstate+1
 	end
-	bearsound = love.audio.newSource("sound/bear"..bearstate..".ogg", static)
+	if mode == "stalker" then
+		bearsound = love.audio.newSource("stalker/cidorovich"..bearstate..".ogg", static)
+	else
+		bearsound = love.audio.newSource("sound/bear"..bearstate..".ogg", static)
+	end
 	bearsound:setVolume(0.6)
 	love.audio.play(bearsound)
 end
@@ -117,7 +121,11 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 		if peqmode == false and bans>=150000 then
 			peqmode = true
 			bans = bans - 150000
-			love.audio.play(peqcoming)
+			if mode == "stalker" then
+				love.audio.play(peqcoming_st)
+			else
+				love.audio.play(peqcoming)
+			end
 		elseif peqmode == false then BearSounds()
 		end
 	 
