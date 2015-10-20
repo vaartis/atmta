@@ -106,7 +106,8 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 		fally=1
 		isfall=false
 		love.math.random(0,200)
-	elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally and y<=fally+212 then 
+		
+	elseif button=="l" and diomode==true and x>=fallx and x<=fallx+160 and y>=fally and y<=fally+212 then --clicked on falling dio
 		love.audio.pause()
 		love.audio.play(dio_begin)
 		love.timer.sleep(5)
@@ -117,6 +118,18 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 		bans=bans+(25000*rp)
 		willdio=love.math.random(0,200)
 		fally=1
+		if mode == "stalker" then		--kostil' for proper (almost) sound resuming
+			love.audio.resume(stalker)
+		elseif mode == "mgs" then
+			love.audio.resume(mgsnuclear)
+		elseif mode == "gachimuchi" then
+			love.audio.resume(gachimuchi)
+		elseif mode == "spooky" then
+			love.audio.resume(mus_spooky)
+		else
+			love.audio.resume(music)
+		end
+		
 	elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
 		if peqmode == false and bans>=150000 then
 			peqmode = true

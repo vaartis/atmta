@@ -57,11 +57,14 @@ slava=love.audio.newSource("sound/riba.ogg",static)
 ech=love.audio.newSource("sound/ech.ogg",static)
 who = love.audio.newSource("sound/who.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
+
 music = love.audio.newSource("music.ogg",stream)
 music2 = love.audio.newSource("gosling/gosling.ogg",stream)
 mgsnuclear = love.audio.newSource("mgs/mgs.ogg",stream)
 gachimuchi = love.audio.newSource("sound/gachimuchi.ogg",stream)
 stalker = love.audio.newSource("stalker/stalker.ogg",stream)
+mus_spooky = love.audio.newSource("spooky/spooky.ogg", stream)
+
 peqflying = love.audio.newSource("pequod/chopper.ogg", stream)
 peqflying_st = love.audio.newSource("stalker/helicopter.ogg", stream)
 peqcoming = love.audio.newSource("pequod/PeqComing.ogg",static)
@@ -95,6 +98,7 @@ music2:setVolume(0.1)
 mgsnuclear:setVolume(0.1)
 gachimuchi:setVolume(0.1)
 stalker:setVolume(0.15)
+mus_spooky:setVolume(0.2)
 peqflying:setVolume(0.06)
 peqflying_st:setVolume(0.04)
 peqcoming:setVolume(0.4)
@@ -231,6 +235,10 @@ function love.keypressed(key)
 		mode = "stalker" 
 		love.audio.pause()
 		love.audio.play(stalker)
+	elseif key == "7" then
+		mode = "spooky"
+		love.audio.pause()
+		love.audio.play(mus_spooky)
 	elseif key=='h' or key=='H'or key=='р' or key=='Р' then
 		if ishelp==true then
 			ishelp=false
@@ -292,15 +300,17 @@ end
 
 function love.mousepressed(x, y, button)
 clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as ^
+
 if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
-   bans=0
-   love.audio.play(ors)
-   isbanfelix=3
-  elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
-  love.audio.play(noice)
-  bans=bans+1 -- lenny face
-  isbanfelix=3
-  end
+	bans=0
+	love.audio.play(ors)
+	isbanfelix=3
+elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
+	love.audio.play(noice)
+	bans=bans+1 -- lenny face
+	isbanfelix=3
+end
+
 end
 
 function love.draw()

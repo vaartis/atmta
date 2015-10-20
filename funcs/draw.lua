@@ -78,7 +78,9 @@ function greyButtons() --All gray buttons are here
 end
 function fallcheck() --Drawing fallin things~
 	if isfall==true then
-		if mode == "mgs" then
+		if diomode == true then
+			love.graphics.draw(dio, fallx, fally)
+		elseif mode == "mgs" then
 			love.graphics.draw(fallingmgs,fallx,fally)
 		elseif mode == "stalker" then
 			love.graphics.draw(fallingstl,fallx,fally)
