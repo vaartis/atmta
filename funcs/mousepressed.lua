@@ -13,10 +13,11 @@ function BearSounds()	-- Volodya Medved sounds when not enough bans
 end
 		
 
-function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as line 430
-	if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then
+function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the same as line 430
+	if button=="l" and x>=1 and x<=155 and y>=20 and y<=79 then	--BAN
 		bans=bans+bans_add
-		if clicktime < 20 then
+				
+		if clicktime < 20 then		--ora calculations
 			clickcount = clickcount + 1
 			clicktime = 0
 		else clickcount = 0
@@ -25,25 +26,51 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 			love.audio.play(ora)
 		else love.audio.stop(ora)
 		end
-	elseif x>=784 and x<=800 and y>=584 and y<=600 then love.audio.play(slava)
-	elseif button=="l" and x>=1 and x<=155 and y>=80 and y<=139 then
+		
+	elseif x>=784 and x<=800 and y>=584 and y<=600 then		--riba
+		if mode == "stalker" then
+			love.audio.play(slava_monolith)
+		else
+			love.audio.play(slava)
+		end
+	
+	elseif x>=765 and x<=800 and y>=470 and y <=548 then	--shop
+			if isshop == false then
+				love.window.setMode(1200, 600)
+				isshop = true
+			else
+				love.window.setMode(800, 600)
+				isshop = false
+			end
+	
+	elseif button=="l" and x>=805 and x<=9960 and y>=80 and y<=139 then	--cats
 		if bans>=(10*rp*(cats)) and rp>=2 and bans>=0 then
 			cats=cats+1
 			bans=bans-(10*rp*(cats-1))
 		else BearSounds()
 		end
-	elseif button=="l" and x>=1 and x<=155 and y>=140 and y<=200 then
+		
+	elseif button=="l" and x>=805 and x<=960 and y>=140 and y<=200 then	--felix
 		if bans>=50*rp*(felixs) and rp>=3 and bans>=0 then
 			felixs=felixs+1
 			bans=bans-(50*rp*(felixs-1))
 		else BearSounds()
 		end 
-	elseif button=="l" and x>=1 and x<=155 and y>=263 and y<=323 then
+		
+	elseif button=="l" and x>=805 and x<=960 and y>=202 and y<=262 then	--bot
+		if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
+			bots=bots+1
+			bans=bans-(100*rp*(bots-1))
+		else BearSounds()
+		end
+		
+	elseif button=="l" and x>=805 and x<=960 and y>=263 and y<=323 then	--zoe
 		if bans>=300*rp*(zoes) and rp>=15 and bans>=0 then
 			zoes=zoes+1
 			bans=bans-(300*rp*(zoes-1))
 		else BearSounds()
 		end
+		
 	elseif button=="l" and x>=650 and x<=800 and y>=20 and y<=170 then	
 		if bans>=500 and rp>=5 and ispruglo==false then
 			bans_add=bans_add+1
@@ -74,12 +101,7 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 			iswho=true
 		elseif bans < 250000 and iswho == false then BearSounds()
 		end
-	elseif button=="l" and x>=1 and x<=155 and y>=202 and y<=262 then
-		if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
-			bots=bots+1
-			bans=bans-(100*rp*(bots-1))
-		else BearSounds()
-		end
+	
 	elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then
 		if bans>=50*rp and bans>=0 then
 			bans=bans-(50*rp)
@@ -91,13 +113,16 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 			bans=bans-((50*rp)*10)
 			rp=rp+10
 		end
-	elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then
+		
+	elseif button=="l" and x>=fallx and x<=fallx+55 and y>=fally and y<=fally+70 then	--clicking on falling things
 		if mode == "mgs" then
 			love.audio.play(fallsnake)
 		elseif mode == "stalker" then
 			love.audio.play(fallstl)
 		elseif mode == "gachimuchi" then
 			love.audio.play(fallgachimuchi)
+		elseif mode == "spooky" then
+			love.audio.play(sound_fallingtrumpet)
 		else
 			love.audio.play(fallyee)
 		end
@@ -118,6 +143,7 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 		bans=bans+(25000*rp)
 		willdio=love.math.random(0,200)
 		fally=1
+		
 		if mode == "stalker" then		--kostil' for proper (almost) sound resuming
 			love.audio.resume(stalker)
 		elseif mode == "mgs" then
@@ -130,7 +156,7 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 			love.audio.resume(music)
 		end
 		
-	elseif button == "l" and x>=1 and x<=155 and y>=326 and y<=387 then	 
+	elseif button == "l" and x>=805 and x<=960 and y>=326 and y<=387 then	 --buying heli
 		if peqmode == false and bans>=150000 then
 			peqmode = true
 			bans = bans - 150000
@@ -142,19 +168,19 @@ function clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the sam
 		elseif peqmode == false then BearSounds()
 		end
 	 
-	 end
-	if iscipa==true then
+	end
+	if iscipa==true then	--dealing with cipa
 		if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
 			iscipa=false
 			ispchela=false
 			willroller=love.math.random(0,200)
 			peqspeed = 1
-		elseif button=="l" and x>=cipax and x<=cipax+331 and y>=cipay and y<=cipay+161 and rollermode==true then
-		iscipa=false
-		ifpchela=false
-		rollermode=false
-		love.audio.play(roller_s)
-		willroller=love.math.random(0,200)
+		elseif button=="l" and rollermode==true and x>=cipax and x<=cipax+331 and y>=cipay and y<=cipay+161 then
+			iscipa=false
+			ifpchela=false
+			rollermode=false
+			love.audio.play(roller_s)
+			willroller=love.math.random(0,200)
 		end
 	end
 end

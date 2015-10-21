@@ -23,7 +23,10 @@ b_vss = love.graphics.newImage("stalker/vss.jpg")
 ban_b = love.graphics.newImage("buttons/ban.jpg")
 b_shmonat = love.graphics.newImage("stalker/shmonat.jpg")
 
+b_shop = love.graphics.newImage("buttons/shop.png")
+
 riba= love.graphics.newImage("buttons/riba.png")
+b_goldfish = love.graphics.newImage("buttons/goldfish.png")
 pause_m = love.graphics.newImage("buttons/pause_m.jpg")
 pruglo = love.graphics.newImage("buttons/pruglo.jpg") 
 uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
@@ -48,12 +51,14 @@ fallingyee = love.graphics.newImage("falling/yee.png")
 fallingmgs = love.graphics.newImage("falling/mgs.png")
 fallingstl = love.graphics.newImage("falling/stalker.png") 
 fallinggachimuchi= love.graphics.newImage("falling/gachimuchi.png") 
+icon_fallingtrumpet = love.graphics.newImage("falling/trumpet.png")
 
 
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
 slava=love.audio.newSource("sound/riba.ogg",static)
+slava_monolith = love.audio.newSource("sound/slava_monolith.ogg", static)
 ech=love.audio.newSource("sound/ech.ogg",static)
 who = love.audio.newSource("sound/who.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
@@ -75,6 +80,7 @@ fallsnake = love.audio.newSource("falling/mgs.ogg", static)
 fallstl = love.audio.newSource("falling/stalker.ogg", static)
 fallyee = love.audio.newSource("falling/yee.ogg", static)
 fallgachimuchi=love.audio.newSource("falling/gachimuchi.ogg", static)
+sound_fallingtrumpet = love.audio.newSource("falling/trumpet.ogg", static)
 ora = love.audio.newSource("sound/ora.ogg", static)
 
 darude:setLooping(true)
@@ -179,6 +185,7 @@ willroller=love.math.random(0,200)
 rollermode=false
 roller_i=love.graphics.newImage("dio/roller.gif")
 roller_s = love.audio.newSource("dio/roller.ogg", static)
+isshop = false
 
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)

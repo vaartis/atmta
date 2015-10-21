@@ -162,7 +162,7 @@ function timer1() --All da first timer stuff (Bans+,cipa,falling stuff)
 	if timr==20 then 
 		timr=0
 		
-		gencipa=love.math.random(0,150)	--generating cipas, rollers, falling
+		gencipa=love.math.random(0, 150)	--generating cipas, rollers, falling
 		
 		if     iscipa==true and bans>=1000 and bans<15000 and bans-100>=0 then bans=bans-100 ispchela=false
 		elseif iscipa==true and bans<100 and bans<1000 and bans-10>=0 then bans=bans-10 ispchela=false 
