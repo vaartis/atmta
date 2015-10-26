@@ -38,12 +38,16 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 			if isshop == false then
 				love.window.setMode(1200, 600)
 				isshop = true
+				MakeBanFelixCanvas()	--we have to redraw canvases after changing window size
+				MakeHelpCanvas()
 			else
 				love.window.setMode(800, 600)
 				isshop = false
+				MakeBanFelixCanvas()
+				MakeHelpCanvas()
 			end
 	
-	elseif button=="l" and x>=805 and x<=9960 and y>=80 and y<=139 then	--cats
+	elseif button=="l" and x>=805 and x<=960 and y>=80 and y<=139 then	--cats
 		if bans>=(10*rp*(cats)) and rp>=2 and bans>=0 then
 			cats=cats+1
 			bans=bans-(10*rp*(cats-1))
@@ -71,7 +75,7 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 		else BearSounds()
 		end
 		
-	elseif button=="l" and x>=650 and x<=800 and y>=20 and y<=170 then	
+	elseif button=="l" and x>=1050 and x<=1200 and y>=450 and y<=600 then	--buying pruglo and co.
 		if bans>=500 and rp>=5 and ispruglo==false then
 			bans_add=bans_add+1
 			bans=bans-500
@@ -102,7 +106,7 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 		elseif bans < 250000 and iswho == false then BearSounds()
 		end
 	
-	elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then
+	elseif button=="l" and x>=1 and x<=155 and y>=538 and y<=600 then	--buying memes
 		if bans>=50*rp and bans>=0 then
 			bans=bans-(50*rp)
 			rp=rp+1

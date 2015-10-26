@@ -2,6 +2,7 @@ function love.load()
 require("funcs/draw")
 require("funcs/mousepressed")
 require("funcs/update")
+anim8 = require "funcs/anim8"
 slib = require "funcs/slib"
 slib.init("slib")
 saves = {}
@@ -9,7 +10,9 @@ love.keyboard.setTextInput(false)
 love.graphics.setBackgroundColor(255,255,255)
 
 bg = love.graphics.newImage("bg/bg.jpg")
+bg_steam = love.graphics.newImage("bg/bg_steam.jpg")
 bg_stalker = love.graphics.newImage("bg/bg_stalker.jpg")
+bg_spooky = love.graphics.newImage("bg/bg_spooky.jpg")
 
 atmta = love.graphics.newImage("buttons/button1.jpg")
 b_pm = love.graphics.newImage("stalker/pm.jpg")
@@ -53,6 +56,13 @@ fallingstl = love.graphics.newImage("falling/stalker.png")
 fallinggachimuchi= love.graphics.newImage("falling/gachimuchi.png") 
 icon_fallingtrumpet = love.graphics.newImage("falling/trumpet.png")
 
+pumpkin = love.graphics.newImage("spooky/pumpkin.jpg")
+grid_pumpkin = anim8.newGrid(240, 180, 2160, 900)
+anim_pumpkin = anim8.newAnimation(grid_pumpkin('1-9', '1-5', '9-1', '5-1'), 0.4)
+
+sp_top = love.graphics.newImage("spooky/top.jpg")
+grid_top = anim8.newGrid(645, 61, 645, 122)
+anim_top = anim8.newAnimation(grid_top(1, '1-2'), 0.5)
 
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
@@ -125,9 +135,9 @@ clickcount = 0
 inputline = ""
 
 peqmode=false						
-peqx = 1100							
+peqx = 1400							
 peqy = love.math.random(100, 500)		
-peqframes = -300						
+peqframes = -600						
 peqdirection = 1					
 peqrange = love.math.random(150, 300)	
 peqspeed = 1
@@ -187,6 +197,7 @@ roller_i=love.graphics.newImage("dio/roller.gif")
 roller_s = love.audio.newSource("dio/roller.ogg", static)
 isshop = false
 
+function MakeBanFelixCanvas()				--we have to call canvases after each window size change
 banfelix = love.graphics.newCanvas(200,100)
  love.graphics.setCanvas(banfelix)
 	love.graphics.setColor(133,133,133)
@@ -206,6 +217,10 @@ banfelix = love.graphics.newCanvas(200,100)
 	love.graphics.print("Kys\'",130,75)
 	love.graphics.rectangle("line",120,70,50,20)
  love.graphics.setCanvas()
+end
+MakeBanFelixCanvas()
+ 
+function MakeHelpCanvas()
 help = love.graphics.newCanvas(150,400)
  love.graphics.setCanvas(help)
 	love.graphics.setColor(133,133,133)
@@ -215,6 +230,7 @@ help = love.graphics.newCanvas(150,400)
 	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (1000bans/s)\n WHO?! : 100 MEMES \n (+10000bans/click)")
  love.graphics.setCanvas()
 end
+MakeHelpCanvas()
 
 function love.keypressed(key)
       if key=="1" then 
@@ -264,7 +280,7 @@ function love.keypressed(key)
 		end
 	else
 		inputline = ""
-end 
+	end 
 end
 
 
@@ -303,6 +319,8 @@ function love.update(dt)
 		isbanfelix=1
 	end
 	
+	anim_pumpkin:update(dt)
+	anim_top:update(dt)
 end
 
 function love.mousepressed(x, y, button)
@@ -324,8 +342,17 @@ function love.draw()
 
 if mode == "stalker" then
 	love.graphics.draw(bg_stalker,1,1)
+elseif mode == "spooky" then
+	love.graphics.draw(bg_spooky, 1, 1)
 else
 	love.graphics.draw(bg,1,1)
+end
+
+love.graphics.draw(bg_steam, 800, 1)
+
+if mode == "spooky" then
+	anim_pumpkin:draw(pumpkin, 450, 420)
+	anim_top:draw(sp_top, 155, 20)
 end
 
 if isbanfelix==1 then
@@ -349,5 +376,8 @@ greyButtons() --All gray buttons are here
 buttons() --All clickable buttons & their prices~ are here
 if peqmode == true then love.graphics.draw(peq, peqx, peqy) end
 love.graphics.setColor(255,255,255)
+
+
+end
 
 end
