@@ -9,6 +9,8 @@ saves = {}
 love.keyboard.setTextInput(false)
 love.graphics.setBackgroundColor(255,255,255)
 
+love.window.setTitle("ATMTA")
+
 bg = love.graphics.newImage("bg/bg.jpg")
 bg_steam = love.graphics.newImage("bg/bg_steam.jpg")
 bg_stalker = love.graphics.newImage("bg/bg_stalker.jpg")
@@ -22,14 +24,13 @@ bot_b = love.graphics.newImage("buttons/button3.jpg")
 b_kalash = love.graphics.newImage("stalker/kalash.jpg")
 zoe = love.graphics.newImage("buttons/button4.jpg")
 b_vss = love.graphics.newImage("stalker/vss.jpg")
+b_shop = love.graphics.newImage("buttons/shop.png")
 
 ban_b = love.graphics.newImage("buttons/ban.jpg")
 b_shmonat = love.graphics.newImage("stalker/shmonat.jpg")
 
-b_shop = love.graphics.newImage("buttons/shop.png")
-
 riba= love.graphics.newImage("buttons/riba.png")
-b_goldfish = love.graphics.newImage("buttons/goldfish.png")
+b_goldfish = love.graphics.newImage("stalker/goldfish.png")
 pause_m = love.graphics.newImage("buttons/pause_m.jpg")
 pruglo = love.graphics.newImage("buttons/pruglo.jpg") 
 uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
@@ -56,13 +57,18 @@ fallingstl = love.graphics.newImage("falling/stalker.png")
 fallinggachimuchi= love.graphics.newImage("falling/gachimuchi.png") 
 icon_fallingtrumpet = love.graphics.newImage("falling/trumpet.png")
 
+b_instant = love.graphics.newImage("buttons/instant_button.png")
+b_instant_pr = love.graphics.newImage("buttons/instant_button_pressed.png")
+
 pumpkin = love.graphics.newImage("spooky/pumpkin.jpg")
 grid_pumpkin = anim8.newGrid(240, 180, 2160, 900)
 anim_pumpkin = anim8.newAnimation(grid_pumpkin('1-9', '1-5', '9-1', '5-1'), 0.4)
-
 sp_top = love.graphics.newImage("spooky/top.jpg")
 grid_top = anim8.newGrid(645, 61, 645, 122)
 anim_top = anim8.newAnimation(grid_top(1, '1-2'), 0.5)
+img_sans = love.graphics.newImage("spooky/sans_grid_fin.png")
+grid_sans = anim8.newGrid(100,131,200,131)
+anim_sans = anim8.newAnimation(grid_sans('1-2', 1), 1)
 
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
@@ -99,6 +105,7 @@ music2:setLooping(true)
 mgsnuclear:setLooping(true)
 gachimuchi:setLooping(true)
 stalker:setLooping(true)
+mus_spooky:setLooping(true)
 peqflying:setLooping(true)
 peqflying_st:setLooping(true)
 ora:setLooping(true)
@@ -133,6 +140,7 @@ mode = ""
 clicktime = 0
 clickcount = 0
 inputline = ""
+pyalitsya = 0
 
 peqmode=false						
 peqx = 1400							
@@ -196,6 +204,8 @@ rollermode=false
 roller_i=love.graphics.newImage("dio/roller.gif")
 roller_s = love.audio.newSource("dio/roller.ogg", static)
 isshop = false
+instant_pr = false
+issans = false
 
 function MakeBanFelixCanvas()				--we have to call canvases after each window size change
 banfelix = love.graphics.newCanvas(200,100)
@@ -233,35 +243,42 @@ end
 MakeHelpCanvas()
 
 function love.keypressed(key)
-      if key=="1" then 
-      mode = ""
-	  love.audio.pause()
-      love.audio.play(music)
-   elseif key=="2" then
-      mode = ""
-	  love.audio.pause()
-      love.audio.play(music2)
+    if key=="1" then 
+		mode = ""
+		love.audio.pause()
+		love.audio.play(music)
+		love.window.setTitle("ATMTA")
+	elseif key=="2" then
+		mode = ""
+		love.audio.pause()
+		love.audio.play(music2)
+		love.window.setTitle("ATMTA")
 	elseif key=="3" then
 		mode = "mgs"
 		--bans=bans+100000
 		love.audio.pause()
 		love.audio.play(mgsnuclear)
+		love.window.setTitle("A Hideo Kojima Game")
 	elseif key=="4" then
 		mode = ""
 		love.audio.pause()
 		love.audio.play(darude)
+		love.window.setTitle("ATMTA")
 	elseif key=="5" then
 		mode = "gachimuchi"
 		love.audio.pause()
 		love.audio.play(gachimuchi)
+		love.window.setTitle("BoyNextDoor ")
 	elseif key=="6" then
 		mode = "stalker" 
 		love.audio.pause()
 		love.audio.play(stalker)
+		love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
 	elseif key == "7" then
 		mode = "spooky"
 		love.audio.pause()
 		love.audio.play(mus_spooky)
+		love.window.setTitle("Spooky Scary ATMTA")
 	elseif key=='h' or key=='H'or key=='р' or key=='Р' then
 		if ishelp==true then
 			ishelp=false
@@ -310,8 +327,10 @@ function love.update(dt)
 		timer1()
 		if clicktime < 21 then 
 			clicktime = clicktime + 1
-		else clicktime = 0 love.audio.stop(ora)
+		else
+			love.audio.stop(ora)
 		end
+
 	if love.keyboard.isDown('escape') then
 		love.event.push('quit')
 	end
@@ -319,23 +338,39 @@ function love.update(dt)
 		isbanfelix=1
 	end
 	
-	anim_pumpkin:update(dt)
-	anim_top:update(dt)
+	if mode == "spooky" then
+		anim_pumpkin:update(dt)
+		anim_top:update(dt)
+		if issans == true then
+			anim_sans:update(dt)
+		end
+	end
 end
 
 function love.mousepressed(x, y, button)
-clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as ^
+	clicks(x,y,button) --Buttons and YEE click check. X,y,click sre the same as ^
 
-if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
-	bans=0
-	love.audio.play(ors)
-	isbanfelix=3
-elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
-	love.audio.play(noice)
-	bans=bans+1 -- lenny face
-	isbanfelix=3
+	if isbanfelix==1 and x>=420 and x<=470 and y>=170 and y<=190 then --400,100
+		bans=0
+		love.audio.play(ors)
+		isbanfelix=3
+	elseif isbanfelix==1 and x>=520 and x<=570 and y>=170 and y<=190 then
+		love.audio.play(noice)
+		bans=bans+1 -- lenny face
+		isbanfelix=3
+	end
 end
 
+function love.mousereleased(x, y, button)
+	if button == "l" and x>=805 and x<=955 and y>=450 and y<=600 then
+		instant_pr = false
+		if mode == "spooky" then
+			pyalitsya = pyalitsya + 1
+			if pyalitsya >= 30 then
+				issans = true
+			end
+		end
+	end
 end
 
 function love.draw()
@@ -353,6 +388,9 @@ love.graphics.draw(bg_steam, 800, 1)
 if mode == "spooky" then
 	anim_pumpkin:draw(pumpkin, 450, 420)
 	anim_top:draw(sp_top, 155, 20)
+	if issans == true then
+		anim_sans:draw(img_sans, 70, 413)
+	end
 end
 
 if isbanfelix==1 then
@@ -370,7 +408,7 @@ if ispchela==true then
 love.graphics.draw(pchela,cipax,cipay)
 end
 init() --All da basic drawing & bean
-windowTitles() --Window titles
+--windowTitles() --Window titles
 fallcheck() --Drawing fallin things~
 greyButtons() --All gray buttons are here
 buttons() --All clickable buttons & their prices~ are here

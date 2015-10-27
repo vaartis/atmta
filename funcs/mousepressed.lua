@@ -20,9 +20,9 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 		if clicktime < 20 then		--ora calculations
 			clickcount = clickcount + 1
 			clicktime = 0
-		else clickcount = 0
+		else clickcount = 0 clicktime = 0
 		end
-		if clickcount > 35 then
+		if clickcount > 35 then		--ora sounds
 			love.audio.play(ora)
 		else love.audio.stop(ora)
 		end
@@ -171,7 +171,8 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 			end
 		elseif peqmode == false then BearSounds()
 		end
-	 
+	elseif button == "l" and x>=805 and x<=955 and y>=450 and y<=600 then
+		instant_pr = true
 	end
 	if iscipa==true then	--dealing with cipa
 		if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then

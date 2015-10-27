@@ -6,10 +6,13 @@ function init() --All da basic drawing & bean
 		love.graphics.draw(riba,784,584)
 	end
 	
-	if mode ~= "spooky" then					--bean/pumpkin
+	if mode ~= "spooky" then					--bean/pumpkin, sans?
 		love.graphics.draw(bean,300,300)
 	else
 		anim_pumpkin:draw(pumpkin, 450, 420)
+		if issans == true then
+			love.window.setTitle("GRIB GROB KREST KREST KLADBISCHE METTATON")
+		end
 	end
 	
 	if mode == "stalker" then					--top left info text
@@ -37,21 +40,28 @@ function init() --All da basic drawing & bean
 	
 	love.graphics.draw(b_shop, 765,470)
 	
-	love.graphics.setColor(255,255,255)
+	love.graphics.draw(b_instant, 805, 450)
+	if instant_pr == true then
+		love.graphics.draw(b_instant_pr, 805, 450)
+	end
+	
 end
 
+--[[	testing without it
 function windowTitles() --Window titles
 	if mode == "mgs" then
-		love.window.setTitle("A Hideo Kojima Game")
+		--love.window.setTitle("A Hideo Kojima Game")
 	elseif mode == "gachimuchi" then
 		love.window.setTitle("Boy♂Next♂Door♂ ")
 	elseif mode == "stalker" then
 		love.window.setTitle("ANYY CHEEKI BREEKI I V DAMKEE")
+	elseif mode == "spooky" then
+		love.window.setTitle("Spooky Scary ATMTA")
 	else
 		love.window.setTitle("ATMTA")
 	end
 end
-
+]]
 function greyButtons() --All gray buttons are here
 	love.graphics.setColor(133,133,133)
 	if mode == "stalker" then

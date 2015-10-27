@@ -178,9 +178,10 @@ function timer1() --All da first timer stuff (Bans+,cipa,falling stuff)
 					rollermode=true
 					ispchela=false
 					iscipa=false
-					iscipa=true
-					cipax = love.math.random(300,400)
-					cipay = love.math.random(100,300)
+				end
+				iscipa=true
+				cipax = love.math.random(300,400)
+				cipay = love.math.random(100,300)
 				end
 			end
 			
@@ -218,12 +219,11 @@ function timer1() --All da first timer stuff (Bans+,cipa,falling stuff)
 					bans=bans+((felixs-1)*10)
 				end
 				if bots>1 then
-					bans=bans+((bots-1)*100)
+					bans=bans+((bots-1)*50)
 				end
 				if zoes>1 then
-					bans=bans+((zoes-1)*1000)
+					bans=bans+((zoes-1)*100)
 				end
 			end
 		end
 	end
- end
