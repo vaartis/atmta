@@ -10,6 +10,9 @@ function init() --All da basic drawing & bean
 	
 	if mode ~= "spooky" then					--bean/pumpkin, sans?
 		love.graphics.draw(bean,300,300)
+		if issans == true then
+			anim_scorp:draw(img_scorp, 1, 410 )
+		end
 	else
 		anim_pumpkin:draw(pumpkin, 450, 420)
 		anim_skel_doom:draw(img_skel_doom, 250, 450)

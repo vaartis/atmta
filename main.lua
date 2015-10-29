@@ -61,6 +61,9 @@ icon_fallingtrumpet = love.graphics.newImage("falling/trumpet.png")
 
 b_instant = love.graphics.newImage("buttons/instant_button.png")
 b_instant_pr = love.graphics.newImage("buttons/instant_button_pressed.png")
+img_scorp = love.graphics.newImage("buttons/scorp.png")
+grid_scorp = anim8.newGrid(150, 143, 300, 143)
+anim_scorp = anim8.newAnimation(grid_scorp('1-2', 1), 0.5)
 
 pumpkin = love.graphics.newImage("spooky/pumpkin.jpg")
 grid_pumpkin = anim8.newGrid(240, 180, 2160, 900)
@@ -356,6 +359,8 @@ function love.update(dt)
 		if issans == true then
 			anim_sans:update(dt)
 		end
+	elseif mode ~= "spooky" and issans == true then
+		anim_scorp:update(dt)
 	end
 	
 end
@@ -377,12 +382,12 @@ end
 function love.mousereleased(x, y, button)
 	if button == "l" and x>=805 and x<=955 and y>=450 and y<=600 then
 		instant_pr = false
-		if mode == "spooky" then
+		
 			pyalitsya = pyalitsya + 1
 			if pyalitsya >= 30 then
 				issans = true
 			end
-		end
+		
 	end
 end
 
