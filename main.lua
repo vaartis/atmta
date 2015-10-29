@@ -25,12 +25,14 @@ b_kalash = love.graphics.newImage("stalker/kalash.jpg")
 zoe = love.graphics.newImage("buttons/button4.jpg")
 b_vss = love.graphics.newImage("stalker/vss.jpg")
 b_shop = love.graphics.newImage("buttons/shop.png")
+gaben = love.graphics.newImage("buttons/Gabe_trollface.png")
 
 ban_b = love.graphics.newImage("buttons/ban.jpg")
 b_shmonat = love.graphics.newImage("stalker/shmonat.jpg")
 
 riba= love.graphics.newImage("buttons/riba.png")
 b_goldfish = love.graphics.newImage("stalker/goldfish.png")
+b_flowey = love.graphics.newImage("spooky/flowey.png")
 pause_m = love.graphics.newImage("buttons/pause_m.jpg")
 pruglo = love.graphics.newImage("buttons/pruglo.jpg") 
 uvarov = love.graphics.newImage("buttons/uvarov.jpg") 
@@ -69,12 +71,17 @@ anim_top = anim8.newAnimation(grid_top(1, '1-2'), 0.5)
 img_sans = love.graphics.newImage("spooky/sans_grid_fin.png")
 grid_sans = anim8.newGrid(100,131,200,131)
 anim_sans = anim8.newAnimation(grid_sans('1-2', 1), 1)
+img_skel_doom = love.graphics.newImage("spooky/skel_doom.png")
+grid_skel_doom = anim8.newGrid(204,136, 408, 136)
+anim_skel_doom = anim8.newAnimation(grid_skel_doom('1-2', 1), 0.8)
 
 korovan=love.audio.newSource("sound/korovan.ogg",static)
 darude=love.audio.newSource("sound/du.ogg",static)
 ors=love.audio.newSource("sound/or.ogg",static)
 slava=love.audio.newSource("sound/riba.ogg",static)
 slava_monolith = love.audio.newSource("sound/slava_monolith.ogg", static)
+flowey_laugh = love.audio.newSource("spooky/flowey_laugh.ogg", static)
+flowey_laugh_steal = love.audio.newSource("spooky/flowey_laugh_steal.ogg", static)
 ech=love.audio.newSource("sound/ech.ogg",static)
 who = love.audio.newSource("sound/who.ogg",static)
 noice=love.audio.newSource("sound/noice.ogg",static)
@@ -98,6 +105,7 @@ fallyee = love.audio.newSource("falling/yee.ogg", static)
 fallgachimuchi=love.audio.newSource("falling/gachimuchi.ogg", static)
 sound_fallingtrumpet = love.audio.newSource("falling/trumpet.ogg", static)
 ora = love.audio.newSource("sound/ora.ogg", static)
+sound_gaben = love.audio.newSource("sound/Gaben.ogg", static)
 
 darude:setLooping(true)
 music:setLooping(true)
@@ -132,6 +140,7 @@ fallstl:setVolume(0.7)
 fallyee:setVolume(0.7)
 eightfive:setVolume(0.2)
 ora:setVolume(0.8)
+sound_gaben:setVolume(0.4)
 
 timr=0
 timr2=0
@@ -141,6 +150,7 @@ clicktime = 0
 clickcount = 0
 inputline = ""
 pyalitsya = 0
+flowey_clicked = 0
 
 peqmode=false						
 peqx = 1400							
@@ -237,7 +247,7 @@ help = love.graphics.newCanvas(150,400)
 	love.graphics.rectangle("fill",1,1,150,400)
 	love.graphics.setColor(0,0,0)
 	love.graphics.rectangle("line",1,1,150,399)
-	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+100ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (1000bans/s)\n WHO?! : 100 MEMES \n (+10000bans/click)")
+	love.graphics.print("            Help \n\n Cat : 2 MEMES\n (+1ban/s)\n Felix : 3 MEMES\n (+10ban/s)\n Pruglo : 5 MEMES\n (+1ban/click)\n BOGDAN : 10 MEMES \n (+10ban/s)\n Uvarov : 15 MEMES\n (+10ban/click)\n Nomad : 25 MEMES\n (+100 bans/click)\n JonTron : 50 MEMES\n (+1000ban/click)\n Zoe : 15 MEMES\n (100bans/s)\n WHO?! : 100 MEMES \n (+10000bans/click)")
  love.graphics.setCanvas()
 end
 MakeHelpCanvas()
@@ -289,6 +299,7 @@ function love.keypressed(key)
 		inputline = inputline..string.sub(key, 3,3)
 		if inputline == string.sub("88005553535", 1, string.len(inputline)) then
 			if inputline == "88005553535" then
+				bans = bans + 1000
 				love.audio.play(eightfive)
 				inputline = ""
 			end
@@ -341,10 +352,12 @@ function love.update(dt)
 	if mode == "spooky" then
 		anim_pumpkin:update(dt)
 		anim_top:update(dt)
+		anim_skel_doom:update(dt)
 		if issans == true then
 			anim_sans:update(dt)
 		end
 	end
+	
 end
 
 function love.mousepressed(x, y, button)
@@ -384,6 +397,9 @@ else
 end
 
 love.graphics.draw(bg_steam, 800, 1)
+love.graphics.setColor(220, 220, 220)
+love.graphics.draw(gaben, 1125, 1)
+love.graphics.setColor(255, 255, 255)
 
 if mode == "spooky" then
 	anim_pumpkin:draw(pumpkin, 450, 420)

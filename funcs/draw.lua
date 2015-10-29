@@ -2,21 +2,24 @@ function init() --All da basic drawing & bean
 	
 	if mode == "stalker" then					--riba
 		love.graphics.draw(b_goldfish, 784, 584)
+	elseif mode == "spooky" then
+		love.graphics.draw(b_flowey,784,584)
 	else
-		love.graphics.draw(riba,784,584)
+		love.graphics.draw(riba, 784, 584)
 	end
 	
 	if mode ~= "spooky" then					--bean/pumpkin, sans?
 		love.graphics.draw(bean,300,300)
 	else
 		anim_pumpkin:draw(pumpkin, 450, 420)
+		anim_skel_doom:draw(img_skel_doom, 250, 450)
 		if issans == true then
 			love.window.setTitle("GRIB GROB KREST KREST KLADBISCHE METTATON")
 		end
 	end
 	
 	if mode == "stalker" then					--top left info text
-		love.graphics.setColor(255,0,0)
+		love.graphics.setColor(224,150,0)
 		love.graphics.print("Gop-stop: "..bans,150,1)
 		love.graphics.print("Habar: "..rp,160,550)
 	else
@@ -28,7 +31,7 @@ function init() --All da basic drawing & bean
 		love.graphics.print("Banned: "..bans,150,1)
 		love.graphics.print("MEMES: "..rp,160,550)
 	end
-	love.graphics.print("ATMTA Clicker 1.0t",1,1)
+	love.graphics.print("ATMTA Clicker 1.0S",1,1)
 	love.graphics.print(50*rp.." : "..(50*rp)*10,170,538)
 	love.graphics.setColor(255,255,255)
 	

@@ -30,6 +30,15 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 	elseif x>=784 and x<=800 and y>=584 and y<=600 then		--riba
 		if mode == "stalker" then
 			love.audio.play(slava_monolith)
+		elseif mode == "spooky" then
+			flowey_clicked = flowey_clicked + 1
+			if flowey_clicked == 5 then
+				love.audio.play(flowey_laugh_steal)
+				bans = 0
+				flowey_clicked = 0
+			else
+				love.audio.play(flowey_laugh)
+			end
 		else
 			love.audio.play(slava)
 		end
@@ -62,7 +71,7 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 		end 
 		
 	elseif button=="l" and x>=805 and x<=960 and y>=202 and y<=262 then	--bot
-		if bans>=100*rp*(bots-1) and rp>=10 and bans>=0 then
+		if bans>=100*rp*(bots) and rp>=10 and bans>=0 then
 			bots=bots+1
 			bans=bans-(100*rp*(bots-1))
 		else BearSounds()
@@ -173,6 +182,8 @@ function clicks(x,y,button)			 --Buttons and YEE click check. X,y,click sre the 
 		end
 	elseif button == "l" and x>=805 and x<=955 and y>=450 and y<=600 then
 		instant_pr = true
+	elseif button == "l" and x>=1125 and x<=1200 and y>=1 and y<=75 then	--clicking gaben
+		sound_gaben:play()
 	end
 	if iscipa==true then	--dealing with cipa
 		if button=="l" and x>=cipax and x<=cipax+16 and y>=cipay and y<=cipay+16 then
